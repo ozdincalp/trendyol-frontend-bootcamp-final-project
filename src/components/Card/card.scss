@@ -1,7 +1,5 @@
 .card-container {
     margin-bottom: -115px;
-    .card-close {
-    }
     .card-open {
         margin-top: 10px;
         position: relative;
@@ -13,8 +11,5 @@
         background-color: #fff;
         z-index: 5;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        
     }
 }
