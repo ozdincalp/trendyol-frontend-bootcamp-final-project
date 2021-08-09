@@ -1,0 +1,1 @@
+export {initializeCards} from './card-initializer'

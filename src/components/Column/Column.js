@@ -2,13 +2,10 @@ import React from 'react'
 import './Column.scss'
 import Card from '../Card/Card'
 
-const Column = () => {
+const Column = ({deck}) => {
     return (
         <div className="column-container">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            {deck.map((card, index) => <Card card={card} key={index}/>)}
         </div>
     )
 }
