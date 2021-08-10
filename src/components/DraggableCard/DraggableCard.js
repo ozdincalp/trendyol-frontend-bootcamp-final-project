@@ -1,24 +1,26 @@
-import "./DraggableCard.scss";
 import { useDrag } from "react-dnd";
+import "./DraggableCard.scss";
 
-const Card = ({ card, setDeck, deckID, canDrag }) => {
+const Card = ({ card, setDeck, deckID}) => {
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
     type: "card",
     item: { card, deckID },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
-    canDrag: canDrag,
+    canDrag: card.isLastCard,
     end: (item, monitor) => {
       if (monitor.didDrop()) {
         setDeck((prevState) => {
-          const newState = prevState.filter((card) => card.id !== item.card.id);
-          newState[newState.length - 1].isLastCard = true;
+          const newState = prevState.slice();
+          newState[deckID] = newState[deckID].filter((card) => card.id !== item.card.id);
+          newState[deckID][newState[deckID].length - 1].isLastCard = true;
           return newState;
         });
       }
     },
   }));
+
   return (
     <div className="card-container">
       {isDragging ? (
