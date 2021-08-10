@@ -14,7 +14,6 @@ const Column = ({ deck, id, setDeck }) => {
     canDrop: (item, monitor) => {
       if(item.deckID === id) return false;
       else{
-        console.log("from canDrop", deck.length)
          if(item.card.value - deck[deck.length - 1].value === 1) return true;
       }
     },
@@ -22,8 +21,12 @@ const Column = ({ deck, id, setDeck }) => {
 
   const addCardsToDeck = (card) => {
     setDeck((prevState) => {
+      const arr = prevState.find((deck) => deck.includes(card));
+      const index = arr.findIndex((searchedCard) => searchedCard.id === card.id)
+      const items = arr.slice(index, arr.length);
+
       const newState = prevState.slice();
-      newState[id] = [...newState[id], card];
+      newState[id] = [...newState[id], ...items];
       return newState;
     })
   };

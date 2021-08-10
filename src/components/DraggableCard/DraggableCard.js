@@ -2,9 +2,10 @@ import { useDrag } from "react-dnd";
 import "./DraggableCard.scss";
 
 const Card = ({ card, setDeck, deckID}) => {
+
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
     type: "card",
-    item: { card, deckID },
+    item: { card  },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -12,8 +13,15 @@ const Card = ({ card, setDeck, deckID}) => {
     end: (item, monitor) => {
       if (monitor.didDrop()) {
         setDeck((prevState) => {
+          const arr = prevState.find((deck) => deck.includes(card));
+          const index = arr.findIndex((searchedCard) => searchedCard.id === card.id)
+          const items = arr.slice(index, arr.length);
+          const draggedIDs = items.map((item) => item.id);
+
+         
+          
           const newState = prevState.slice();
-          newState[deckID] = newState[deckID].filter((card) => card.id !== item.card.id);
+          newState[deckID] = newState[deckID].filter((card) => !draggedIDs.includes(card.id));
           newState[deckID][newState[deckID].length - 1].isLastCard = true;
           return newState;
         });
@@ -23,9 +31,6 @@ const Card = ({ card, setDeck, deckID}) => {
 
   return (
     <div className="card-container">
-      {isDragging ? (
-        <div ref={dragPreview} />
-      ) : (
         <div
           ref={drag}
           id={card.id}
@@ -34,7 +39,6 @@ const Card = ({ card, setDeck, deckID}) => {
             <h3>{card.value}</h3>
           </div>
         </div>
-      )}
     </div>
   );
 };
