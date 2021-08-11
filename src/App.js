@@ -1,18 +1,23 @@
 import {useState, useEffect} from 'react'
 import Columns from './components/Columns/Columns'
+import SpareDecks from './components/SpareDecks/SpareDecks'
 import {initializeCards} from './utils/index'
 import './App.scss'
 
 const App = () => {
-  const [decks, setDecks] = useState([]);
+  const [initialDecks, setInitialDecks] = useState([]);
+  const [spareDecks, setSpareDecks] = useState([]);
 
   useEffect(() => {
-      setDecks(initializeCards());
+    const [initialDecks, spareDecks] = initializeCards();
+      setInitialDecks(initialDecks);
+      setSpareDecks(spareDecks);
   },[]);
 
   return (
       <div>
-        {decks.length ? <Columns decks={decks[0]}/> : null}
+        {spareDecks.length ? <SpareDecks decks={spareDecks} setDecks={setInitialDecks} setSpareDecks={setSpareDecks}/> : null}
+        {initialDecks.length ? <Columns decks={initialDecks} setDecks={setInitialDecks}/> : null}
       </div>
   )
 }

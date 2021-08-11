@@ -1,0 +1,9 @@
+.spare-decks-container {
+    display: flex;
+    position: relative;
+    margin-left: 120px;
+    * {
+        position: relative;
+        margin-left: -115px;
+    }
+}

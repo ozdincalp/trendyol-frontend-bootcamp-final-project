@@ -16,7 +16,7 @@ const Column = ({ deck, id, setDeck }) => {
         if (item.deckID === id) return false;
         else {
           if (deck.length === 0) {
-            return item.card.value === 13;
+            return item.card.value === 1;
           } else {
             return item.card.value - deck[deck.length - 1].value === 1;
           }

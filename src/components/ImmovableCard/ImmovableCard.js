@@ -1,7 +1,7 @@
 import React from "react";
 import cardImage from "../../assets/card-back.png";
 
-const NotDraggableCard = () => {
+const ImmovableCard = () => {
   return (
     <div className="card-container">
         <div className="card-close">
@@ -11,4 +11,4 @@ const NotDraggableCard = () => {
   );
 };
 
-export default NotDraggableCard;
+export default ImmovableCard;

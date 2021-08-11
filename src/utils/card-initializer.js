@@ -16,13 +16,16 @@ export const initializeCards = () => {
     for(let i = 0; i < 4; i++){
       cardsforDecks[i].push(initialDecks[2][i]);
     }
-    const mappedDecks = setCardProperties(cardsforDecks);
-    return [mappedDecks, cardsToWait];
+
+    const spareDecks = setCardProperties(_.chunk(cardsToWait, 10), true);
+    const mappedDecks = setCardProperties(cardsforDecks, false);
+
+    return [mappedDecks, spareDecks];
 }
 
-const setCardProperties = (decks) => {
+const setCardProperties = (decks, isSpare) => {
     const mappedDecks = decks.map((deck) => deck.map((card, index)=> {
-      const isLastCard = (index === deck.length-1);
+      const isLastCard = isSpare || (index === deck.length-1);
       return {
         id: uuidv4(),
         value:card,
