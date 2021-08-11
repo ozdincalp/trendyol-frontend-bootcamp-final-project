@@ -3,7 +3,7 @@ import "./DraggableCard.scss";
 
 const Card = ({ card, setDeck, deckID}) => {
 
-  const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: "card",
     item: { card  },
     collect: (monitor) => ({
@@ -22,7 +22,9 @@ const Card = ({ card, setDeck, deckID}) => {
           
           const newState = prevState.slice();
           newState[deckID] = newState[deckID].filter((card) => !draggedIDs.includes(card.id));
-          newState[deckID][newState[deckID].length - 1].isLastCard = true;
+          if(newState[deckID][newState[deckID].length - 1]) {
+            newState[deckID][newState[deckID].length - 1].isLastCard = true;
+          }
           return newState;
         });
       }
