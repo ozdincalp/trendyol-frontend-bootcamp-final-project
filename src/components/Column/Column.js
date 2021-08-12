@@ -1,10 +1,26 @@
+import { useEffect } from "react";
 import { useDrop } from "react-dnd";
 import DraggableCard from "../DraggableCard/DraggableCard";
 import ImmovableCard from "../ImmovableCard/ImmovableCard";
 import CardHolder from "../CardHolder/CardHolder";
 import "./Column.scss";
 
-const Column = ({ deck, id, setDeck }) => {
+const Column = ({ deck, id, setDeck, setCompletedDeckCount }) => {
+
+  useEffect(() => {
+      const arr = deck.filter((card) => card.isDraggable).map((card) => card.id);
+      if(arr.length === 13){
+        setDeck((prevState) => {
+          const newState = prevState.slice();
+          newState[id] = newState[id].filter((card) => !arr.includes(card.id));
+          newState[id][newState[id].length - 1].isOpen = true;
+          newState[id][newState[id].length - 1].isDraggable = true;
+          return newState;
+        })
+        setCompletedDeckCount((prevState) => prevState + 1);
+      }
+  },[deck, id, setCompletedDeckCount, setDeck]);
+
   const [, drop] = useDrop(
     () => ({
       accept: "card",
