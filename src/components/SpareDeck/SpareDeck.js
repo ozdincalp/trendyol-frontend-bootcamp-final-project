@@ -8,6 +8,7 @@ const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
       newState.forEach((oldDeck, index) => {
         if (!oldDeck.includes(deck[index])) {
           if (deck[index].value - oldDeck[oldDeck.length - 1].value !== 1) {
+            deck[index].blocking = true;
             oldDeck.forEach((card) => (card.isDraggable = false));
           }
           oldDeck.push(deck[index]);

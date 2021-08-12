@@ -9,12 +9,15 @@ const Column = ({ deck, id, setDeck, setCompletedDeckCount }) => {
 
   useEffect(() => {
       const arr = deck.filter((card) => card.isDraggable).map((card) => card.id);
+
       if(arr.length === 13){
         setDeck((prevState) => {
           const newState = prevState.slice();
           newState[id] = newState[id].filter((card) => !arr.includes(card.id));
-          newState[id][newState[id].length - 1].isOpen = true;
-          newState[id][newState[id].length - 1].isDraggable = true;
+          if(newState[id][newState[id].length - 1]){
+            newState[id][newState[id].length - 1].isOpen = true;
+            newState[id][newState[id].length - 1].isDraggable = true;
+          }
           return newState;
         })
         setCompletedDeckCount((prevState) => prevState + 1);

@@ -23,6 +23,15 @@ const Card = ({ card, setDeck, deckID}) => {
           const newState = prevState.slice();
           newState[deckID] = newState[deckID].filter((card) => !draggedIDs.includes(card.id));
           if(newState[deckID][newState[deckID].length - 1]) {
+            if(card.blocking) {
+              const temp = newState[deckID].filter((card) => card.isOpen).slice().reverse();
+              for(let i = 0; i < temp.length; i++) {
+                if(temp[i].blocking) break;
+                temp[i].isDraggable = true;
+              }
+              newState[deckID] = temp.reverse();
+              card.blocking = false;
+            }
             newState[deckID][newState[deckID].length - 1].isOpen = true;
             newState[deckID][newState[deckID].length - 1].isDraggable = true;
           }
