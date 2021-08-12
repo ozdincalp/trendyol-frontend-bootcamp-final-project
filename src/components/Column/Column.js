@@ -43,7 +43,7 @@ const Column = ({ deck, id, setDeck }) => {
     <div className="column-container" ref={drop} id={id}>
       {deck.length !== 0 ? (
         deck.map((card, index) => {
-          if (card.isLastCard) {
+          if (card.isOpen) {
             return (
               <DraggableCard
                 card={card}

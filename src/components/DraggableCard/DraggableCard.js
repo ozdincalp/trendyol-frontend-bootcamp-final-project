@@ -9,7 +9,7 @@ const Card = ({ card, setDeck, deckID}) => {
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
-    canDrag: card.isLastCard,
+    canDrag: card.isDraggable,
     end: (item, monitor) => {
       if (monitor.didDrop()) {
         setDeck((prevState) => {
@@ -23,13 +23,14 @@ const Card = ({ card, setDeck, deckID}) => {
           const newState = prevState.slice();
           newState[deckID] = newState[deckID].filter((card) => !draggedIDs.includes(card.id));
           if(newState[deckID][newState[deckID].length - 1]) {
-            newState[deckID][newState[deckID].length - 1].isLastCard = true;
+            newState[deckID][newState[deckID].length - 1].isOpen = true;
+            newState[deckID][newState[deckID].length - 1].isDraggable = true;
           }
           return newState;
         });
       }
     },
-  }));
+  }), [card.isDraggable]);
 
   return (
     <div className="card-container">

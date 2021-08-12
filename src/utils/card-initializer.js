@@ -25,11 +25,12 @@ export const initializeCards = () => {
 
 const setCardProperties = (decks, isSpare) => {
     const mappedDecks = decks.map((deck) => deck.map((card, index)=> {
-      const isLastCard = isSpare || (index === deck.length-1);
+      const isCardOpen = isSpare || (index === deck.length-1);
       return {
         id: uuidv4(),
         value:card,
-        isLastCard: isLastCard,
+        isOpen: isCardOpen,
+        isDraggable: isCardOpen,
       }
     }))
     return mappedDecks;
