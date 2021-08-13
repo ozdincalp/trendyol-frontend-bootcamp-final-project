@@ -1,4 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
+import confetti from "canvas-confetti";
+
 
 export const setCardProperties = (decks, isSpare) => {
   const mappedDecks = decks.map((deck) =>
@@ -49,3 +51,30 @@ export const filterDraggedCards = (draggedColumn, newState, card) => {
   );
   return filteredColumn;
 };
+
+export const throwConfetti = () => {
+  var duration = 5 * 1000;
+  var colors = ['#bb0000', '#ffffff', "#000"];
+  var end = Date.now() + duration;
+  
+  (function frame() {
+    confetti({
+      particleCount: 7,
+      angle: 60,
+      spread: 110,
+      origin: { x: 0 },
+      colors:colors
+    });
+    confetti({
+      particleCount: 7,
+      angle: 120,
+      spread: 110,
+      origin: { x: 1 },
+      colors:colors
+    });
+  
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  }());
+}

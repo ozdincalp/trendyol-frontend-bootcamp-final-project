@@ -12,7 +12,7 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount }) => {
       .filter((card) => card.isDraggable)
       .map((card) => card.id);
 
-    if (sortedCardIDs.length === 13) {
+    if (sortedCardIDs.length === 3) {
       removeCompletedDeck(columnID, sortedCardIDs, setDeck);
       setCompletedDeckCount((prevState) => prevState + 1);
     }

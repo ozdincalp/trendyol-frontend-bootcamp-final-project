@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { initializeCards } from "./logic/index";
-import Columns from "./components/Columns/Columns";
+import { throwConfetti } from "./utils/index";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
+import CompletedDecks from "./components/CompletedDecks/CompletedDecks";
+import Columns from "./components/Columns/Columns";
 import "./App.scss";
 
 const App = () => {
   const [playableDecks, setPlayableDecks] = useState([]);
   const [spareDecks, setSpareDecks] = useState([]);
-  const [completedDeckCount, setCompletedDeckCount] = useState(0);
+  const [completedDeckCount, setCompletedDeckCount] = useState(7);
 
   useEffect(() => {
     const [playableDecks, spareDecks] = initializeCards();
@@ -15,16 +17,24 @@ const App = () => {
     setSpareDecks(spareDecks);
   }, []);
 
+  useEffect(() => {
+    if (completedDeckCount === 8) {
+      throwConfetti();
+    }
+  }, [completedDeckCount]);
+
   return (
     <div>
-      <p>{completedDeckCount}</p>
-      {spareDecks.length ? (
-        <SpareDecks
-          decks={spareDecks}
-          setDecks={setPlayableDecks}
-          setSpareDecks={setSpareDecks}
-        />
-      ) : null}
+      <div className="top-container">
+        {spareDecks.length ? (
+          <SpareDecks
+            decks={spareDecks}
+            setDecks={setPlayableDecks}
+            setSpareDecks={setSpareDecks}
+          />
+        ) : null}
+        <CompletedDecks completedDeckCount={completedDeckCount} />
+      </div>
       {playableDecks.length ? (
         <Columns
           decks={playableDecks}
