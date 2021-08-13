@@ -1,65 +1,39 @@
 import { useEffect } from "react";
 import { useDrop } from "react-dnd";
+import { addCardsToDeck, removeCompletedDeck } from "../../logic/index";
 import DraggableCard from "../DraggableCard/DraggableCard";
 import ImmovableCard from "../ImmovableCard/ImmovableCard";
 import CardHolder from "../CardHolder/CardHolder";
 import "./Column.scss";
 
-const Column = ({ deck, id, setDeck, setCompletedDeckCount }) => {
-
+const Column = ({ columnID, deck, setDeck, setCompletedDeckCount }) => {
   useEffect(() => {
-      const arr = deck.filter((card) => card.isDraggable).map((card) => card.id);
+    const sortedCardIDs = deck
+      .filter((card) => card.isDraggable)
+      .map((card) => card.id);
 
-      if(arr.length === 13){
-        setDeck((prevState) => {
-          const newState = prevState.slice();
-          newState[id] = newState[id].filter((card) => !arr.includes(card.id));
-          if(newState[id][newState[id].length - 1]){
-            newState[id][newState[id].length - 1].isOpen = true;
-            newState[id][newState[id].length - 1].isDraggable = true;
-          }
-          return newState;
-        })
-        setCompletedDeckCount((prevState) => prevState + 1);
-      }
-  },[deck, id, setCompletedDeckCount, setDeck]);
+    if (sortedCardIDs.length === 13) {
+      removeCompletedDeck(columnID, sortedCardIDs, setDeck);
+      setCompletedDeckCount((prevState) => prevState + 1);
+    }
+  }, [deck, columnID, setCompletedDeckCount, setDeck]);
 
-  const [, drop] = useDrop(
-    () => ({
+  const [, drop] = useDrop(() => ({
       accept: "card",
-      drop: ({ card }) => addCardsToDeck(card),
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
-      canDrop: (item, monitor) => {
-        if (item.deckID === id) return false;
-        else {
-          if (deck.length === 0) {
-            return item.card.value === 1;
-          } else {
-            return item.card.value - deck[deck.length - 1].value === 1;
-          }
+      drop: ({ card }) => addCardsToDeck(columnID, card, setDeck),
+      canDrop: (item) => {
+        if (item.deckID === columnID) {
+          return false;
+        } else if (deck.length === 0) {
+          return true;
+        } else {
+          return item.card.value - deck[deck.length - 1].value === 1;
         }
       },
-    }),
-    [deck]
-  );
+    }),[deck]);
 
-  const addCardsToDeck = (card) => {
-    setDeck((prevState) => {
-      const arr = prevState.find((deck) => deck.includes(card));
-      const index = arr.findIndex(
-        (searchedCard) => searchedCard.id === card.id
-      );
-      const items = arr.slice(index, arr.length);
-
-      const newState = prevState.slice();
-      newState[id] = [...newState[id], ...items];
-      return newState;
-    });
-  };
   return (
-    <div className="column-container" ref={drop} id={id}>
+    <div className="column-container" ref={drop}>
       {deck.length !== 0 ? (
         deck.map((card, index) => {
           if (card.isOpen) {
@@ -67,7 +41,7 @@ const Column = ({ deck, id, setDeck, setCompletedDeckCount }) => {
               <DraggableCard
                 card={card}
                 setDeck={setDeck}
-                deckID={id}
+                deckID={columnID}
                 key={index}
               />
             );

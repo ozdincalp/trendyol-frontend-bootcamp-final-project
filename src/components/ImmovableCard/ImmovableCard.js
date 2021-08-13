@@ -1,4 +1,3 @@
-import React from "react";
 import cardImage from "../../assets/card-back.png";
 
 const ImmovableCard = () => {

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
+import { initializeCards } from "./logic/index";
 import Columns from "./components/Columns/Columns";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
-import { initializeCards } from "./utils/index";
 import "./App.scss";
 
 const App = () => {
-  const [initialDecks, setInitialDecks] = useState([]);
+  const [playableDecks, setPlayableDecks] = useState([]);
   const [spareDecks, setSpareDecks] = useState([]);
   const [completedDeckCount, setCompletedDeckCount] = useState(0);
 
   useEffect(() => {
-    const [initialDecks, spareDecks] = initializeCards();
-    setInitialDecks(initialDecks);
+    const [playableDecks, spareDecks] = initializeCards();
+    setPlayableDecks(playableDecks);
     setSpareDecks(spareDecks);
   }, []);
 
@@ -21,14 +21,14 @@ const App = () => {
       {spareDecks.length ? (
         <SpareDecks
           decks={spareDecks}
-          setDecks={setInitialDecks}
+          setDecks={setPlayableDecks}
           setSpareDecks={setSpareDecks}
         />
       ) : null}
-      {initialDecks.length ? (
+      {playableDecks.length ? (
         <Columns
-          decks={initialDecks}
-          setDecks={setInitialDecks}
+          decks={playableDecks}
+          setDecks={setPlayableDecks}
           setCompletedDeckCount={setCompletedDeckCount}
         />
       ) : null}

@@ -1,0 +1,6 @@
+export {addCardsToDeck} from './addCardsToDeck'
+export {dealCardsFromSpare} from './dealCardsFromSpare'
+export {initializeCards} from './initializeCards'
+export {removeCompletedDeck} from './removeCompletedDeck'
+export {removeDraggedCardsFromDeck} from './removeDraggedCardFromDeck'
+export {removeSpareDeck} from './removeSpareDeck'

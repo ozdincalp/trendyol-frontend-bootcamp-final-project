@@ -1,28 +1,12 @@
-import React from "react";
+import { dealCardsFromSpare, removeSpareDeck } from "../../logic/index";
 import CardImage from "../../assets/card-back.png";
 
 const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
-  const handleClick = (e) => {
-    setDecks((prevState) => {
-      const newState = prevState;
-      newState.forEach((oldDeck, index) => {
-        if (!oldDeck.includes(deck[index])) {
-          if (deck[index].value - oldDeck[oldDeck.length - 1].value !== 1) {
-            deck[index].blocking = true;
-            oldDeck.forEach((card) => (card.isDraggable = false));
-          }
-          oldDeck.push(deck[index]);
-        }
-      });
-      return newState;
-    });
-    setSpareDecks((prevState) => {
-      const newState = prevState.filter((oldDeck, index) => {
-        return index !== id;
-      });
-      return newState;
-    });
+  const dealCards = (e) => {
+    dealCardsFromSpare(deck, setDecks);
+    removeSpareDeck(id, setSpareDecks);
   };
+
   return (
     <img
       width="135px"
@@ -30,7 +14,7 @@ const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
       src={CardImage}
       alt=""
       draggable="false"
-      onClick={handleClick}
+      onClick={dealCards}
     />
   );
 };
