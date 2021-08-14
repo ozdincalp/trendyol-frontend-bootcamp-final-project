@@ -17,9 +17,9 @@ const Card = ({ card, deckID, setDeck }) => {
 
   return (
     <div className="card-container">
-      <div ref={drag}>
+      <div ref={drag} >
         <div className="card-open-container">
-          <div className="card-open">
+          <div id={card.id} className={`card-open ${card.isEmphasized ? 'emphasized' : ''}`}>
             <h3>{card.value}</h3>
           </div>
         </div>

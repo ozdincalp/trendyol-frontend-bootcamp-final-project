@@ -8,8 +8,10 @@ export const undoMove = (moves, setMoves, setPlayableDecks, removeDraggedCardsFr
         const lastElementIndex = sourceColumn.length -1;
 
         if(!sourceColumn.includes(draggedCards[0])){
-          sourceColumn[lastElementIndex].isOpen = previousCard.isOpen;
-          sourceColumn[lastElementIndex].isDraggable = previousCard.isDraggable;
+          if(lastElementIndex !== -1) {
+            sourceColumn[lastElementIndex].isOpen = previousCard.isOpen;
+            sourceColumn[lastElementIndex].isDraggable = previousCard.isDraggable;
+          }
           sourceColumn.push(...draggedCards);
         }
         

@@ -3,6 +3,8 @@ import {
   initializeCards,
   removeDraggedCardsFromDeck,
   undoMove,
+  mapHints,
+  showHint
 } from "./logic/index";
 import { throwConfetti } from "./utils/index";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
@@ -13,8 +15,9 @@ import "./App.scss";
 const App = () => {
   const [playableDecks, setPlayableDecks] = useState([]);
   const [spareDecks, setSpareDecks] = useState([]);
-  const [completedDeckCount, setCompletedDeckCount] = useState(7);
+  const [completedDeckCount, setCompletedDeckCount] = useState(0);
   const [moves, setMoves] = useState([]);
+  const [hints, setHints] = useState([]);
 
   useEffect(() => {
     const [playableDecks, spareDecks] = initializeCards();
@@ -27,6 +30,12 @@ const App = () => {
       throwConfetti();
     }
   }, [completedDeckCount]);
+
+  useEffect(() => {
+    if (playableDecks.length > 0) {
+      mapHints(setHints, playableDecks);
+    }
+  }, [playableDecks]);
 
   return (
     <div>
@@ -42,6 +51,7 @@ const App = () => {
       >
         Undo
       </button>
+      <button onClick={() => showHint(hints, playableDecks)}>Show Hint</button>
       <div className="top-container">
         {spareDecks.length ? (
           <SpareDecks

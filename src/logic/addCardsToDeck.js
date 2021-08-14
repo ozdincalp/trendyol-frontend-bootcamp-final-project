@@ -17,8 +17,8 @@ export const addCardsToDeck = (columnID, card, setDeck) => {
     const previousCard = newState[fromColumnIndex][previousCardIndex - 1];
 
     previousCardData = {
-      isOpen: previousCard.isOpen,
-      isDraggable: previousCard.isDraggable,
+      isOpen: previousCard ? previousCard.isOpen : false,
+      isDraggable: previousCard ? previousCard.isDraggable: false,
     };
     
     cards = draggedCards;

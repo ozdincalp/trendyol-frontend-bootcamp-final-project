@@ -1,7 +1,9 @@
-export {addCardsToDeck} from './addCardsToDeck'
-export {dealCardsFromSpare} from './dealCardsFromSpare'
-export {initializeCards} from './initializeCards'
-export {removeCompletedDeck} from './removeCompletedDeck'
-export {removeDraggedCardsFromDeck} from './removeDraggedCardsFromDeck'
-export {removeSpareDeck} from './removeSpareDeck'
-export {undoMove} from './undoMove'
+export { addCardsToDeck } from "./addCardsToDeck";
+export { dealCardsFromSpare } from "./dealCardsFromSpare";
+export { initializeCards } from "./initializeCards";
+export { removeCompletedDeck } from "./removeCompletedDeck";
+export { removeDraggedCardsFromDeck } from "./removeDraggedCardsFromDeck";
+export { removeSpareDeck } from "./removeSpareDeck";
+export { undoMove } from "./undoMove";
+export { mapHints } from "./mapHints";
+export { showHint } from "./showHint";
