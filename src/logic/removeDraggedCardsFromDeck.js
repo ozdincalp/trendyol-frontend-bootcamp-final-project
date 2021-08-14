@@ -1,6 +1,7 @@
 import { filterDraggedCards, unblockDeck } from '../utils/index'
 
 export const removeDraggedCardsFromDeck = (deckID, card, setDeck) => {
+ 
     setDeck((prevState) => {
       const newState = prevState.slice();
   

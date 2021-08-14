@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { initializeCards } from "./logic/index";
+import {
+  initializeCards,
+  removeDraggedCardsFromDeck,
+  undoMove,
+} from "./logic/index";
 import { throwConfetti } from "./utils/index";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
 import CompletedDecks from "./components/CompletedDecks/CompletedDecks";
@@ -10,6 +14,7 @@ const App = () => {
   const [playableDecks, setPlayableDecks] = useState([]);
   const [spareDecks, setSpareDecks] = useState([]);
   const [completedDeckCount, setCompletedDeckCount] = useState(7);
+  const [moves, setMoves] = useState([]);
 
   useEffect(() => {
     const [playableDecks, spareDecks] = initializeCards();
@@ -25,6 +30,18 @@ const App = () => {
 
   return (
     <div>
+      <button
+        onClick={() =>
+          undoMove(
+            moves,
+            setMoves,
+            setPlayableDecks,
+            removeDraggedCardsFromDeck
+          )
+        }
+      >
+        Undo
+      </button>
       <div className="top-container">
         {spareDecks.length ? (
           <SpareDecks
@@ -40,6 +57,7 @@ const App = () => {
           decks={playableDecks}
           setDecks={setPlayableDecks}
           setCompletedDeckCount={setCompletedDeckCount}
+          setMoves={setMoves}
         />
       ) : null}
     </div>

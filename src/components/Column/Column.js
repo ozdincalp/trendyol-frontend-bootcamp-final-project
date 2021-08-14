@@ -6,13 +6,13 @@ import ImmovableCard from "../ImmovableCard/ImmovableCard";
 import CardHolder from "../CardHolder/CardHolder";
 import "./Column.scss";
 
-const Column = ({ columnID, deck, setDeck, setCompletedDeckCount }) => {
+const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setMoves }) => {
   useEffect(() => {
     const sortedCardIDs = deck
       .filter((card) => card.isDraggable)
       .map((card) => card.id);
 
-    if (sortedCardIDs.length === 3) {
+    if (sortedCardIDs.length === 13) {
       removeCompletedDeck(columnID, sortedCardIDs, setDeck);
       setCompletedDeckCount((prevState) => prevState + 1);
     }
@@ -20,7 +20,20 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount }) => {
 
   const [, drop] = useDrop(() => ({
       accept: "card",
-      drop: ({ card }) => addCardsToDeck(columnID, card, setDeck),
+      drop: ({ card }) => {
+        const [draggedCards, index, previousCard] = addCardsToDeck(columnID, card, setDeck);
+        setMoves((prevState) => {
+          if(prevState.length < 100) {
+            const move = {
+              draggedCards: draggedCards,
+              from: index,
+              to: columnID,
+              previousCard: previousCard
+            };
+            return [...prevState, move]
+          } else return prevState;
+        })
+      },
       canDrop: (item) => {
         if (item.deckID === columnID) {
           return false;
