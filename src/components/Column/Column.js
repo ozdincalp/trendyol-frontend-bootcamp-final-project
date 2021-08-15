@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDrop } from "react-dnd";
-import { addCardsToDeck, removeCompletedDeck } from "../../logic/index";
+import { addCardsToDeck, removeCompletedDeck, mapMoves } from "../../logic/index";
+import { checkMove } from "../../utils/index"
 import DraggableCard from "../DraggableCard/DraggableCard";
 import ImmovableCard from "../ImmovableCard/ImmovableCard";
 import CardHolder from "../CardHolder/CardHolder";
 import "./Column.scss";
 
-const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setMoves }) => {
+const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, setMoves }) => {
   useEffect(() => {
     const sortedCardIDs = deck
       .filter((card) => card.isDraggable)
@@ -20,28 +21,12 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setMoves }) =>
 
   const [, drop] = useDrop(() => ({
       accept: "card",
-      drop: ({ card }) => {
-        const [draggedCards, index, previousCard] = addCardsToDeck(columnID, card, setDeck);
-        setMoves((prevState) => {
-          if(prevState.length < 100) {
-            const move = {
-              draggedCards: draggedCards,
-              from: index,
-              to: columnID,
-              previousCard: previousCard
-            };
-            return [...prevState, move]
-          } else return prevState;
-        })
+      drop: async(card) => {
+        const [draggedCards, index, previousCard] = await addCardsToDeck(columnID, card, setDeck);
+        mapMoves(draggedCards, index, columnID, previousCard, setMoves);
       },
       canDrop: (item) => {
-        if (item.deckID === columnID) {
-          return false;
-        } else if (deck.length === 0) {
-          return true;
-        } else {
-          return item.card.value - deck[deck.length - 1].value === 1;
-        }
+        return checkMove(item, deck, columnID);
       },
     }),[deck]);
 
@@ -55,6 +40,7 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setMoves }) =>
                 card={card}
                 setDeck={setDeck}
                 deckID={columnID}
+                setClickMove={setClickMove}
                 key={index}
               />
             );

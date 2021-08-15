@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import {
   initializeCards,
   removeDraggedCardsFromDeck,
+  moveClickedCards,
   undoMove,
   mapHints,
-  showHint
+  showHint,
 } from "./logic/index";
 import { throwConfetti } from "./utils/index";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
@@ -16,6 +17,7 @@ const App = () => {
   const [playableDecks, setPlayableDecks] = useState([]);
   const [spareDecks, setSpareDecks] = useState([]);
   const [completedDeckCount, setCompletedDeckCount] = useState(0);
+  const [clickMove, setClickMove] = useState([]);
   const [moves, setMoves] = useState([]);
   const [hints, setHints] = useState([]);
 
@@ -24,6 +26,16 @@ const App = () => {
     setPlayableDecks(playableDecks);
     setSpareDecks(spareDecks);
   }, []);
+
+  useEffect(() => {
+    moveClickedCards(
+      clickMove,
+      setClickMove,
+      setMoves,
+      playableDecks,
+      setPlayableDecks
+    );
+  }, [clickMove, playableDecks, setPlayableDecks]);
 
   useEffect(() => {
     if (completedDeckCount === 8) {
@@ -67,6 +79,7 @@ const App = () => {
           decks={playableDecks}
           setDecks={setPlayableDecks}
           setCompletedDeckCount={setCompletedDeckCount}
+          setClickMove={setClickMove}
           setMoves={setMoves}
         />
       ) : null}

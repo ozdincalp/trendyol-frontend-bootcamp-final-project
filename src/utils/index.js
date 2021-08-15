@@ -77,4 +77,16 @@ export const throwConfetti = () => {
       requestAnimationFrame(frame);
     }
   }());
-}
+};
+
+export const checkMove = (card, deck, columnID) => {
+  //console.log(item.deckID);
+  // if (item.deckID === columnID) {
+  //   return false;
+  // } else 
+  if (deck.length === 0) {
+    return true;
+  } else {
+    return card.value - deck[deck.length - 1].value === 1;
+  }
+};

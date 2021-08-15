@@ -7,3 +7,5 @@ export { removeSpareDeck } from "./removeSpareDeck";
 export { undoMove } from "./undoMove";
 export { mapHints } from "./mapHints";
 export { showHint } from "./showHint";
+export { mapMoves } from "./mapMoves";
+export { moveClickedCards } from "./moveClickedCards";
