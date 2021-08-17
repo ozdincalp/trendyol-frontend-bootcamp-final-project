@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import {
-  initializeCards,
-  removeDraggedCardsFromDeck,
-  moveClickedCards,
-  undoMove,
-  mapHints,
-  showHint,
-} from "./logic/index";
-import { throwConfetti } from "./utils/index";
+  handleInitialize,
+  handleClickMove,
+  handleUndo,
+  handleHints,
+} from "./logic/handlers/index";
+import { showHint, throwConfetti } from "./utils/index";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
 import CompletedDecks from "./components/CompletedDecks/CompletedDecks";
 import Columns from "./components/Columns/Columns";
@@ -22,18 +20,16 @@ const App = () => {
   const [hints, setHints] = useState([]);
 
   useEffect(() => {
-    const [playableDecks, spareDecks] = initializeCards();
-    setPlayableDecks(playableDecks);
-    setSpareDecks(spareDecks);
+    handleInitialize(setPlayableDecks, setSpareDecks);
   }, []);
 
   useEffect(() => {
-    moveClickedCards(
+    handleClickMove(
       clickMove,
-      setClickMove,
-      setMoves,
       playableDecks,
-      setPlayableDecks
+      setPlayableDecks,
+      setClickMove,
+      setMoves
     );
   }, [clickMove, playableDecks, setPlayableDecks]);
 
@@ -44,21 +40,14 @@ const App = () => {
   }, [completedDeckCount]);
 
   useEffect(() => {
-    if (playableDecks.length > 0) {
-      mapHints(setHints, playableDecks);
-    }
+    handleHints(playableDecks, setHints);
   }, [playableDecks]);
 
   return (
     <div>
       <button
         onClick={() =>
-          undoMove(
-            moves,
-            setMoves,
-            setPlayableDecks,
-            removeDraggedCardsFromDeck
-          )
+          handleUndo(moves, playableDecks, setPlayableDecks, setMoves)
         }
       >
         Undo

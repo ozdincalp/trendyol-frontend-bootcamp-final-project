@@ -1,6 +1,5 @@
-export const dealCardsFromSpare = (deck, setDecks) => {
-    setDecks((prevState) => {
-      const newState = prevState.slice();
+export const dealCardsFromSpare = (deck, previousDecks) => {
+      const newState = previousDecks.slice();
       newState.forEach((oldDeck, index) => {
         if (!oldDeck.includes(deck[index])) {
           if(oldDeck.length > 0) {
@@ -13,5 +12,4 @@ export const dealCardsFromSpare = (deck, setDecks) => {
         }
       });
       return newState;
-    });
-  };
+    };

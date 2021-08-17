@@ -1,4 +1,4 @@
-export const mapHints = (setHints, playableDecks) => {
+export const mapHints = (playableDecks) => {
     const decks = playableDecks.slice();
     const lastCards = decks.map((deck) => deck[deck.length - 1]?.value);
     const hints = [];
@@ -21,5 +21,5 @@ export const mapHints = (setHints, playableDecks) => {
       }
       else return null
     });
-    setHints(mappedHints.filter((column) => !!column));
+    return mappedHints.filter((column) => !!column);
 };

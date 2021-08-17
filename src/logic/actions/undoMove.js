@@ -1,7 +1,5 @@
-export const undoMove = (moves, setMoves, setPlayableDecks, removeDraggedCardsFromDeck) => {
-    if(moves.length > 0) {
-      setPlayableDecks((prevState) => {
-        const newState = prevState.slice();
+export const undoMove = (moves, previousDecks, removeDraggedCardsFromDeck) => {
+        const newState = previousDecks.slice();
 
         const {draggedCards, from, to, previousCard} = moves.slice().pop();
         const sourceColumn = newState[from];
@@ -15,16 +13,13 @@ export const undoMove = (moves, setMoves, setPlayableDecks, removeDraggedCardsFr
           sourceColumn.push(...draggedCards);
         }
         
-        removeDraggedCardsFromDeck(to, draggedCards[0],setPlayableDecks);
-        return newState
-      })
-      setMoves((prevState) => {
-        const newState = prevState.slice();
-        newState.pop();
-        return newState;
-      });
+        const removedState = removeDraggedCardsFromDeck(to, draggedCards[0], previousDecks);
+
+        const newMoves = moves.slice();
+        newMoves.pop();
+
+        return {
+          removedState: removedState,
+          newMoves: newMoves
+        }
     }
-    else {
-      alert("No more moves to take back!")
-    }
-  }

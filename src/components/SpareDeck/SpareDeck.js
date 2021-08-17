@@ -1,12 +1,7 @@
-import { dealCardsFromSpare, removeSpareDeck } from "../../logic/index";
+import { handleDealCards } from "../../logic/handlers/index";
 import CardImage from "../../assets/card-back.png";
 
 const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
-  const dealCards = (e) => {
-    dealCardsFromSpare(deck, setDecks);
-    removeSpareDeck(id, setSpareDecks);
-  };
-
   return (
     <img
       width="135px"
@@ -14,7 +9,7 @@ const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
       src={CardImage}
       alt=""
       draggable="false"
-      onClick={dealCards}
+      onClick={() => handleDealCards(deck, id, setDecks, setSpareDecks)}
     />
   );
 };

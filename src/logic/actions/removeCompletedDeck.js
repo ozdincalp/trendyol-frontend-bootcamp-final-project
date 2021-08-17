@@ -1,6 +1,5 @@
-export const removeCompletedDeck = (id, sortedCardIDs, setDeck) => {
-    setDeck((prevState) => {
-      const newState = prevState.slice();
+export const removeCompletedDeck = (id, sortedCardIDs, previousDecks) => {
+      const newState = previousDecks.slice();
       const remainderDeck = newState[id].filter(
         (card) => !sortedCardIDs.includes(card.id)
       );
@@ -13,5 +12,4 @@ export const removeCompletedDeck = (id, sortedCardIDs, setDeck) => {
       }
       newState[id] = remainderDeck;
       return newState;
-    });
-  };
+    };

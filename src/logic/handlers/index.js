@@ -1,0 +1,9 @@
+export { handleInitialize } from "./handleInitialize";
+export { handleClickMove } from "./handleClickMove";
+export { handleUndo } from "./handleUndo";
+export { handleHints } from "./handleHints";
+export { handleCompletedDeck } from "./handleCompletedDeck";
+export { handleDrop } from "./handleDrop";
+export { handleCardClick } from "./handleCardClick";
+export { handleDealCards } from "./handleDealCards";
+export { handleDraggedCards } from "./handleDraggedCards";

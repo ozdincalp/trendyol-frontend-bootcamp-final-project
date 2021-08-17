@@ -1,6 +1,27 @@
+import _ from "lodash";
 import {v4 as uuidv4} from 'uuid';
 import confetti from "canvas-confetti";
 
+export const initializeCards = () => {
+    const individualCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    let totalCards = [];
+    for (let i = 0; i < 8; i++) {
+      totalCards = totalCards.concat(individualCards);
+    }
+    totalCards = _.shuffle(totalCards);
+    const initialDecks = _.chunk(totalCards, 50);
+    const [cardsToPlay, cardsToWait] = initialDecks;
+  
+    const cardsforDecks = _.chunk(cardsToPlay, 5);
+  
+    for (let i = 0; i < 4; i++) {
+      cardsforDecks[i].push(initialDecks[2][i]);
+    }
+    const spareDecks = setCardProperties(_.chunk(cardsToWait, 10), true);
+    const mappedDecks = setCardProperties(cardsforDecks, false);
+  
+    return [mappedDecks, spareDecks];
+  };
 
 export const setCardProperties = (decks, isSpare) => {
   const mappedDecks = decks.map((deck) =>
@@ -79,7 +100,7 @@ export const throwConfetti = () => {
   }());
 };
 
-export const checkMove = (card, deck, columnID) => {
+export const checkMove = (card, deck) => {
   //console.log(item.deckID);
   // if (item.deckID === columnID) {
   //   return false;
@@ -89,4 +110,25 @@ export const checkMove = (card, deck, columnID) => {
   } else {
     return card.value - deck[deck.length - 1].value === 1;
   }
+};
+export const showHint =  (hints, playableDecks) => {
+  const randomSource = Math.floor(Math.random() * hints.length);
+  const sourceElementColumn = hints[randomSource].column;
+
+  const randomTarget = Math.floor(Math.random() * hints[randomSource].values.length);
+  const targetElementColumn = hints[randomSource].values[randomTarget];
+
+  const sourceElementID = playableDecks[sourceElementColumn][playableDecks[sourceElementColumn].length - 1].id;
+  const targetElementID = playableDecks[targetElementColumn][playableDecks[targetElementColumn].length - 1].id;
+
+  const sourceElement = document.getElementById(sourceElementID);
+  const targetElement = document.getElementById(targetElementID);
+  sourceElement.classList.add("emphasized");
+  setTimeout(() => {
+    sourceElement.classList.remove("emphasized");
+    targetElement.classList.add("emphasized");
+    setTimeout(() => {
+      targetElement.classList.remove("emphasized")
+    }, 0.7 * 1000);
+  }, 0.7 * 1000);
 };

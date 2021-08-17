@@ -1,9 +1,8 @@
-import { filterDraggedCards, unblockDeck } from '../utils/index'
+import { filterDraggedCards, unblockDeck } from '../../utils/index'
 
-export const removeDraggedCardsFromDeck = (deckID, card, setDeck) => {
+export const removeDraggedCardsFromDeck = (deckID, card, previousDeck) => {
  
-    setDeck((prevState) => {
-      const newState = prevState.slice();
+      const newState = previousDeck.slice();
   
       const draggedColumn = newState[deckID];
       let filteredColumn = filterDraggedCards(draggedColumn, newState, card)
@@ -19,5 +18,4 @@ export const removeDraggedCardsFromDeck = (deckID, card, setDeck) => {
       }
       newState[deckID] = filteredColumn;
       return newState;
-    });
-  };
+    };
