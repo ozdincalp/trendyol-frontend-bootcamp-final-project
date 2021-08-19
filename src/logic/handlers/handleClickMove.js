@@ -5,32 +5,36 @@ import {
 } from "../actions/index";
 import { checkMove } from "../../utils/index";
 
-export const handleClickMove = async (
+export const handleClickMove = (
   clickMove,
   playableDecks,
   setPlayableDecks,
   setClickMove,
   setMoves
 ) => {
+  const selectedElement = document.getElementById(clickMove[0].card.id);
+
   if (clickMove.length === 1) {
-    const elem = document.getElementById(clickMove[0].card.id);
-    elem?.classList.add("emphasized");
+    selectedElement.classList.add("emphasized");
   }
   if (clickMove.length === 2) {
-    const { newPlayableDecks, move } = moveClickedCards(
-      clickMove,
-      playableDecks
-    );
-    await setClickMove([]);
+    selectedElement.classList.remove("emphasized");
+    setClickMove([]);
+    
     const value = checkMove(
       clickMove[0].card,
       playableDecks[clickMove[1].deckID],
       clickMove[1].deckID
     );
+
     if (value) {
+      const { newPlayableDecks, move } = moveClickedCards(
+        clickMove,
+        playableDecks.slice()
+      );
       const { draggedCards, from, to, previousCard } = move;
-      await setPlayableDecks(newPlayableDecks);
-      await setMoves((previousMoves) => {
+      setPlayableDecks(newPlayableDecks);
+      setMoves((previousMoves) => {
         const newState = mapMoves(
           draggedCards,
           from,
@@ -40,11 +44,11 @@ export const handleClickMove = async (
         );
         return newState;
       });
-      await setPlayableDecks((previousDecks) => {
+      setPlayableDecks((previousDecks) => {
         const newState = removeDraggedCardsFromDeck(
           clickMove[0].deckID,
           clickMove[0].card,
-          previousDecks
+          previousDecks.slice()
         );
         return newState;
       });

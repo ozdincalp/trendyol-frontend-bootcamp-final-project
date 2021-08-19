@@ -1,13 +1,13 @@
 export const mapHints = (playableDecks) => {
-    const decks = playableDecks.slice();
-    const lastCards = decks.map((deck) => deck[deck.length - 1]?.value);
+    const lastCards = playableDecks.map((deck) => deck[deck.length - 1]?.value);
     const hints = [];
+
     lastCards.forEach((value) => {
-      const result = lastCards.reduce((a, e, i) => {
-        if (e === value - 1) {
-          a.push(i);
+      const result = lastCards.reduce((acc, element, index) => {
+        if (element === value - 1) {
+          acc.push(index);
         }
-        return a;
+        return acc;
       }, []);
       hints.push(result);
     });

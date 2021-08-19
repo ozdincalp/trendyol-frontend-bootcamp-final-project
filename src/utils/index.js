@@ -1,35 +1,47 @@
 import _ from "lodash";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import confetti from "canvas-confetti";
+import { CARD_VALUES, TOTAL_DECKS_COUNT } from "../gameConfig";
 
 export const initializeCards = () => {
-    const individualCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-    let totalCards = [];
-    for (let i = 0; i < 8; i++) {
-      totalCards = totalCards.concat(individualCards);
-    }
-    totalCards = _.shuffle(totalCards);
-    const initialDecks = _.chunk(totalCards, 50);
-    const [cardsToPlay, cardsToWait] = initialDecks;
-  
-    const cardsforDecks = _.chunk(cardsToPlay, 5);
-  
-    for (let i = 0; i < 4; i++) {
-      cardsforDecks[i].push(initialDecks[2][i]);
-    }
-    const spareDecks = setCardProperties(_.chunk(cardsToWait, 10), true);
-    const mappedDecks = setCardProperties(cardsforDecks, false);
-  
-    return [mappedDecks, spareDecks];
-  };
+  const individualCards = Object.keys(CARD_VALUES);
 
-export const setCardProperties = (decks, isSpare) => {
+  let totalCards = [];
+  for (let i = 0; i < TOTAL_DECKS_COUNT; i++) {
+    totalCards = totalCards.concat(individualCards);
+  }
+  const [playableDecks, spareDecks] = setAllDecks(totalCards);
+
+  return [playableDecks, spareDecks];
+};
+
+const setPlayableDecks = (cardsToPlay, leftoverCards) => {
+  const decks = _.chunk(cardsToPlay, 5);
+
+  leftoverCards.forEach((card, index) => {
+    decks[index].push(card);
+  })
+
+  const mappedDecks = setCardProperties(decks, false);
+  return mappedDecks;
+};
+const setAllDecks = (totalCards) => {
+  const shuffledCards = _.shuffle(totalCards);
+  const [cardsToPlay, cardsToWait, leftoverCards] = _.chunk(shuffledCards, 50);
+
+  const playableDecks = setPlayableDecks(cardsToPlay, leftoverCards);
+  const spareDecks = setCardProperties(_.chunk(cardsToWait, 10), true);
+
+  return [playableDecks, spareDecks];
+};
+
+const setCardProperties = (decks, isSpare) => {
   const mappedDecks = decks.map((deck) =>
     deck.map((card, index) => {
       const isCardOpen = isSpare || index === deck.length - 1;
       return {
         id: uuidv4(),
-        value: card,
+        value: +card,
         isOpen: isCardOpen,
         isDraggable: isCardOpen,
       };
@@ -75,51 +87,53 @@ export const filterDraggedCards = (draggedColumn, newState, card) => {
 
 export const throwConfetti = () => {
   var duration = 5 * 1000;
-  var colors = ['#bb0000', '#ffffff', "#000"];
+  var colors = ["#bb0000", "#ffffff", "#000"];
   var end = Date.now() + duration;
-  
+
   (function frame() {
     confetti({
       particleCount: 7,
       angle: 60,
       spread: 110,
       origin: { x: 0 },
-      colors:colors
+      colors: colors,
     });
     confetti({
       particleCount: 7,
       angle: 120,
       spread: 110,
       origin: { x: 1 },
-      colors:colors
+      colors: colors,
     });
-  
+
     if (Date.now() < end) {
       requestAnimationFrame(frame);
     }
-  }());
+  })();
 };
 
 export const checkMove = (card, deck) => {
-  //console.log(item.deckID);
-  // if (item.deckID === columnID) {
-  //   return false;
-  // } else 
-  if (deck.length === 0) {
-    return true;
-  } else {
-    return card.value - deck[deck.length - 1].value === 1;
-  }
+  const targetCard = deck[deck.length - 1];
+  return deck.length === 0 || card.value - targetCard.value === 1;
 };
-export const showHint =  (hints, playableDecks) => {
+
+export const showHint = (hints, playableDecks) => {
   const randomSource = Math.floor(Math.random() * hints.length);
   const sourceElementColumn = hints[randomSource].column;
 
-  const randomTarget = Math.floor(Math.random() * hints[randomSource].values.length);
+  const randomTarget = Math.floor(
+    Math.random() * hints[randomSource].values.length
+  );
   const targetElementColumn = hints[randomSource].values[randomTarget];
 
-  const sourceElementID = playableDecks[sourceElementColumn][playableDecks[sourceElementColumn].length - 1].id;
-  const targetElementID = playableDecks[targetElementColumn][playableDecks[targetElementColumn].length - 1].id;
+  const sourceElementID =
+    playableDecks[sourceElementColumn][
+      playableDecks[sourceElementColumn].length - 1
+    ].id;
+  const targetElementID =
+    playableDecks[targetElementColumn][
+      playableDecks[targetElementColumn].length - 1
+    ].id;
 
   const sourceElement = document.getElementById(sourceElementID);
   const targetElement = document.getElementById(targetElementID);
@@ -128,7 +142,7 @@ export const showHint =  (hints, playableDecks) => {
     sourceElement.classList.remove("emphasized");
     targetElement.classList.add("emphasized");
     setTimeout(() => {
-      targetElement.classList.remove("emphasized")
+      targetElement.classList.remove("emphasized");
     }, 0.7 * 1000);
   }, 0.7 * 1000);
 };

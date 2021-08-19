@@ -1,15 +1,10 @@
 import { undoMove, removeDraggedCardsFromDeck } from "../actions/index";
 
-export const handleUndo = (
-  moves,
-  playableDecks,
-  setPlayableDecks,
-  setMoves
-) => {
+export const handleUndo = (moves, playableDecks, setPlayableDecks, setMoves) => {
   if (moves.length > 0) {
     const { removedState, newMoves } = undoMove(
-      moves,
-      playableDecks,
+      moves.slice(),
+      playableDecks.slice(),
       removeDraggedCardsFromDeck
     );
     setPlayableDecks(removedState);

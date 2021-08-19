@@ -1,8 +1,8 @@
 import { getDraggedCards } from "../../utils/index";
 
 export const addCardsToDeck = (columnID, card, previousDeck) => {
-  const newState = previousDeck.slice();
-  const draggedCards = getDraggedCards(newState.slice(), card);
+  const newState = previousDeck;
+  const draggedCards = getDraggedCards(newState, card);
 
   const fromColumnIndex = newState.findIndex((deck) =>
     deck.includes(draggedCards[0])

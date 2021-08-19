@@ -2,7 +2,7 @@ import { filterDraggedCards, unblockDeck } from '../../utils/index'
 
 export const removeDraggedCardsFromDeck = (deckID, card, previousDeck) => {
  
-      const newState = previousDeck.slice();
+      const newState = previousDeck;
   
       const draggedColumn = newState[deckID];
       let filteredColumn = filterDraggedCards(draggedColumn, newState, card)

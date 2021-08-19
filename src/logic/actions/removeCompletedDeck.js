@@ -1,15 +1,16 @@
-export const removeCompletedDeck = (id, sortedCardIDs, previousDecks) => {
-      const newState = previousDecks.slice();
-      const remainderDeck = newState[id].filter(
-        (card) => !sortedCardIDs.includes(card.id)
+export const removeCompletedDeck = (deckID, sortedCardIDs, previousDecks) => {
+      const newState = previousDecks;
+      const remainderDeck = newState[deckID].filter(
+        (card) => !sortedCardIDs.includes(card.deckID)
       );
 
-      const deckLength = remainderDeck.length;
+      const lastIndex = remainderDeck.length - 1;
+      const lastCard = remainderDeck[lastIndex];
       
-      if (remainderDeck[deckLength - 1]) {
-        remainderDeck[deckLength - 1].isOpen = true;
-        remainderDeck[deckLength - 1].isDraggable = true;
+      if (lastCard) {
+        lastCard.isOpen = true;
+        lastCard.isDraggable = true;
       }
-      newState[id] = remainderDeck;
+      newState[deckID] = remainderDeck;
       return newState;
     };

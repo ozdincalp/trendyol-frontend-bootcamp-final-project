@@ -24,14 +24,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    handleClickMove(
-      clickMove,
-      playableDecks,
-      setPlayableDecks,
-      setClickMove,
-      setMoves
-    );
-  }, [clickMove, playableDecks, setPlayableDecks]);
+    if(clickMove.length) {
+      handleClickMove(
+        clickMove,
+        playableDecks,
+        setPlayableDecks,
+        setClickMove,
+        setMoves
+      );
+    }
+  }, [clickMove, playableDecks]);
 
   useEffect(() => {
     if (completedDeckCount === 8) {
