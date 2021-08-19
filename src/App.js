@@ -4,6 +4,7 @@ import {
   handleClickMove,
   handleUndo,
   handleHints,
+  handleCheat,
 } from "./logic/handlers/index";
 import { showHint, throwConfetti } from "./utils/index";
 import SpareDecks from "./components/SpareDecks/SpareDecks";
@@ -18,13 +19,36 @@ const App = () => {
   const [clickMove, setClickMove] = useState([]);
   const [moves, setMoves] = useState([]);
   const [hints, setHints] = useState([]);
-
+  const [showCheatColumn, setShowCheatColumn] = useState(false);
+ 
   useEffect(() => {
     handleInitialize(setPlayableDecks, setSpareDecks);
   }, []);
 
   useEffect(() => {
-    if(clickMove.length) {
+    handleCheat(showCheatColumn, setPlayableDecks);
+  },[showCheatColumn])
+  useEffect(() => {
+    document.onkeypress = (e) => handleKeypress(e, playableDecks, moves, hints);
+  }, [playableDecks, moves, hints]);
+
+  const handleKeypress = (e, playableDecks, moves, hints) => {
+    switch (e.key) {
+      case "h":
+        showHint(hints, playableDecks);
+        break;
+      case "u":
+        handleUndo(moves, playableDecks, setPlayableDecks, setMoves);
+        break;
+      case "c":
+        setShowCheatColumn(true);
+        break;
+      default:
+        break;
+    }
+  };
+  useEffect(() => {
+    if (clickMove.length) {
       handleClickMove(
         clickMove,
         playableDecks,

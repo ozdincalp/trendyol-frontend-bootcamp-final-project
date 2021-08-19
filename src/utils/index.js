@@ -20,7 +20,7 @@ const setPlayableDecks = (cardsToPlay, leftoverCards) => {
 
   leftoverCards.forEach((card, index) => {
     decks[index].push(card);
-  })
+  });
 
   const mappedDecks = setCardProperties(decks, false);
   return mappedDecks;
@@ -118,13 +118,13 @@ export const checkMove = (card, deck) => {
 };
 
 export const showHint = (hints, playableDecks) => {
-  const randomSource = Math.floor(Math.random() * hints.length);
-  const sourceElementColumn = hints[randomSource].column;
+  const randomIndex = Math.floor(Math.random() * hints.length);
+  const sourceElementColumn = hints[randomIndex].column;
 
   const randomTarget = Math.floor(
-    Math.random() * hints[randomSource].values.length
+    Math.random() * hints[randomIndex].values.length
   );
-  const targetElementColumn = hints[randomSource].values[randomTarget];
+  const targetElementColumn = hints[randomIndex].values[randomTarget];
 
   const sourceElementID =
     playableDecks[sourceElementColumn][
@@ -137,12 +137,33 @@ export const showHint = (hints, playableDecks) => {
 
   const sourceElement = document.getElementById(sourceElementID);
   const targetElement = document.getElementById(targetElementID);
+
+  const sourceElementPosition = sourceElement.getBoundingClientRect();
+  const targetElementPosition = targetElement.getBoundingClientRect();
+
+  const shiftX = targetElementPosition.left - sourceElementPosition.left;
+  const shiftY = targetElementPosition.top - sourceElementPosition.top;
+  sourceElement.animate(
+    [
+      // keyframes
+      {
+        transform: `translate(${shiftX}px, ${shiftY}px)`,
+        backgroundColor: "lightgray",
+        zIndex: "5",
+      },
+    ],
+    {
+      // timing options
+      duration: 1200,
+    }
+  );
+
   sourceElement.classList.add("emphasized");
   setTimeout(() => {
     sourceElement.classList.remove("emphasized");
     targetElement.classList.add("emphasized");
     setTimeout(() => {
       targetElement.classList.remove("emphasized");
-    }, 0.7 * 1000);
-  }, 0.7 * 1000);
+    }, 0.5 * 1000);
+  }, 1 * 1000);
 };
