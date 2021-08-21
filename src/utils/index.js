@@ -121,7 +121,8 @@ export const checkMove = (card, deck) => {
 
 export const showHint = (hints, playableDecks) => {
   const randomIndex = Math.floor(Math.random() * hints.length);
-  const sourceElementColumn = hints[randomIndex].column;
+  if(hints[randomIndex]) {
+    const sourceElementColumn = hints[randomIndex].column;
 
   const randomTarget = Math.floor(
     Math.random() * hints[randomIndex].values.length
@@ -151,7 +152,7 @@ export const showHint = (hints, playableDecks) => {
       {
         transform: `translate(${shiftX}px, ${shiftY}px)`,
         backgroundColor: "lightgray",
-        zIndex: "999",
+        zIndex: "9999",
       },
     ],
     {
@@ -168,4 +169,6 @@ export const showHint = (hints, playableDecks) => {
       targetElement.classList.remove("emphasized");
     }, 0.5 * 1000);
   }, 1 * 1000);
+  }
+  
 };

@@ -23,7 +23,7 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, 
   }), [deck]);
 
   return (
-    <div className="column-container" ref={drop}>
+    <div id={columnID===10 ? "secret-column" : null} className={"column-container" + (columnID===10 ? " secret" : "")} ref={drop}>
       {deck.length !== 0 ? (
         deck.map((card, index) => {
           if (card.isOpen) {

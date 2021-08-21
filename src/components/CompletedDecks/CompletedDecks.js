@@ -1,4 +1,4 @@
-import CompletedDeck from "../CompletedDeck/CompletedDeck"
+import UncompletedDeck from "../UncompletedDeck/UncompletedDeck"
 import ImmovableCard from "../ImmovableCard/ImmovableCard"
 import './CompletedDecks.scss'
 
@@ -9,7 +9,7 @@ const CompletedDecks = ({ completedDeckCount }) => {
                 return <ImmovableCard key={index}/>
             })}
              {[...Array(8 - completedDeckCount)].map((item, index) => {
-                return <CompletedDeck key={index}/>
+                return <UncompletedDeck key={index}/>
             })}
             
         </div>

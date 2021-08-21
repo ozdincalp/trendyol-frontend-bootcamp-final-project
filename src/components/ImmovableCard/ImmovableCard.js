@@ -4,7 +4,7 @@ const ImmovableCard = () => {
   return (
     <div className="card-container">
         <div className="card-close">
-          <img width="135px" height="135px" src={cardImage} alt="" draggable="false"/>
+          <img width="84px" height="125px" src={cardImage} alt="" draggable="false"/>
         </div>
     </div>
   );

@@ -1,10 +1,15 @@
 import { addCardsToDeck } from "../actions/index";
 
-export const handleCheat = (showCheatColumn, setPlayableDecks) => {
+export const handleCheat = async (showCheatColumn, setPlayableDecks) => {
   if (showCheatColumn) {
-    setPlayableDecks((prevState) => {
+    await setPlayableDecks((prevState) => {
       return [...prevState, []];
     });
+    const elem = document.getElementById("secret-column");
+    elem.classList.add("highlight");
+    setTimeout(() => {
+      elem.classList.remove("highlight");
+    }, 1.5 * 1000);
     setTimeout(() => {
       setPlayableDecks((prevState) => {
         const randomColumnIndex = Math.floor(Math.random() * 10);
@@ -25,6 +30,6 @@ export const handleCheat = (showCheatColumn, setPlayableDecks) => {
         newDecks.pop();
         return newDecks;
       });
-    }, 8 * 1000);
+    }, 10 * 1000);
   }
 };

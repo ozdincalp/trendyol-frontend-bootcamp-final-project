@@ -8,3 +8,4 @@ export { handleCardClick } from "./handleCardClick";
 export { handleDealCards } from "./handleDealCards";
 export { handleDraggedCards } from "./handleDraggedCards";
 export { handleCheat } from "./handleCheat";
+export { handleReset } from "./handleReset";

@@ -4,8 +4,8 @@ import CardImage from "../../assets/card-back.png";
 const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
   return (
     <img
-      width="135px"
-      height="135px"
+      width="84px"
+      height="125px"
       src={CardImage}
       alt=""
       draggable="false"

@@ -48,7 +48,7 @@ const DragLayer = ({setDeck, columnID}) => {
     },[item, setDeck])
   return (
     <div style={layerStyles}>
-      {draggedCards.length > 0 ? draggedCards.map((card, index) => <div key={index}>
+      {draggedCards.length > 0 && columnID !== 10 ? draggedCards.map((card, index) => <div key={index}>
           <div className="card-container">
             <div style={getItemStyles(initialOffset, currentOffset, columnID)}>
               <div className="card-open-container">
