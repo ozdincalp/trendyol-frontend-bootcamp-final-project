@@ -1,7 +1,7 @@
 export const removeCompletedDeck = (deckID, sortedCardIDs, previousDecks) => {
       const newState = previousDecks;
       const remainderDeck = newState[deckID].filter(
-        (card) => !sortedCardIDs.includes(card.deckID)
+        (card) => !sortedCardIDs.includes(card.id)
       );
 
       const lastIndex = remainderDeck.length - 1;
@@ -11,6 +11,7 @@ export const removeCompletedDeck = (deckID, sortedCardIDs, previousDecks) => {
         lastCard.isOpen = true;
         lastCard.isDraggable = true;
       }
+
       newState[deckID] = remainderDeck;
       return newState;
     };

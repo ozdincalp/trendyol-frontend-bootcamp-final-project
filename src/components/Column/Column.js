@@ -10,7 +10,7 @@ import "./Column.scss";
 const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, setMoves }) => {
   useEffect(() => {
     handleCompletedDeck(deck, setDeck, columnID, setCompletedDeckCount)
-  }, [deck, columnID, setCompletedDeckCount, setDeck]);
+  }, [deck.length, deck, setDeck, setCompletedDeckCount, columnID]);
 
   const [, drop] = useDrop(() => ({
     accept: "card",

@@ -13,8 +13,24 @@
   text-align: center;
   background-color: #fff;
   border-radius: 4px;
-  z-index: 5;
+  //z-index: 5;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Kaushan Script', cursive;
+
+  .card-value-top {
+    padding-left: 5px;
+    align-self: flex-start;
+  }
+  .card-value-bottom {
+    padding-left: 5px;
+    align-self: flex-end;
+    transform: rotate(180deg);
+  }
+  .card-icon-container {
+    justify-self: center;
+  }
 }
 .emphasized {
   border: 5px solid red;

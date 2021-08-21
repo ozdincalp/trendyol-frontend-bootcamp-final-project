@@ -64,12 +64,14 @@ export const getDraggedCards = (state, card) => {
 
 export const unblockDeck = (draggedColumn, card) => {
   const unblockedDeck = draggedColumn
-    .filter((card) => card.isOpen)
+    //.filter((card) => card.isOpen)
     .slice()
     .reverse();
   for (let i = 0; i < unblockedDeck.length; i++) {
     if (unblockedDeck[i].blocking) break;
-    unblockedDeck[i].isDraggable = true;
+    if (unblockedDeck[i].isOpen) {
+      unblockedDeck[i].isDraggable = true;
+    }
   }
   unblockedDeck.reverse();
   card.blocking = false;
@@ -149,7 +151,7 @@ export const showHint = (hints, playableDecks) => {
       {
         transform: `translate(${shiftX}px, ${shiftY}px)`,
         backgroundColor: "lightgray",
-        zIndex: "5",
+        zIndex: "999",
       },
     ],
     {

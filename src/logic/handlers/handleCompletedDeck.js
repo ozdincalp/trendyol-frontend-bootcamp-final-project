@@ -6,11 +6,11 @@ export const handleCompletedDeck = (deck, setDeck, deckID, setCompletedDeckCount
     .map((card) => card.id);
 
   if (sortedCardIDs.length === 13) {
-    setDeck((prevState) => {
-      const previousDecks = prevState.slice();
+     setDeck((prevState) => {
+      const previousDecks = prevState;
       const newState = removeCompletedDeck(deckID, sortedCardIDs, previousDecks);
       return newState;
     })
-    setCompletedDeckCount((prevState) => prevState + 1);
+     setCompletedDeckCount((prevState) => prevState + 1);
   }
 }
