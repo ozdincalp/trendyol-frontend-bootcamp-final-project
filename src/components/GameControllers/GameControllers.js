@@ -1,7 +1,7 @@
 import React from "react";
 import "./GameControllers.scss";
 
-const GameControllers = ({ handlePlayAgain, handleUndo, handleHint, handleCheat }) => {
+const GameControllers = ({ handlePlayAgain, handleUndo, handleHint, handleCheat}) => {
   return (
     <div className="toolbox-container">
       <div className="game-restart tooltip">

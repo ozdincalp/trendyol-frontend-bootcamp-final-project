@@ -5,8 +5,8 @@ const UncompletedDeck = () => {
     <div className="card-container">
       <div className="card-close">
         <img
-          width="135px"
-          height="135px"
+          width="84px"
+          height="125px"
           src={UncompletedDeckImage}
           alt=""
           draggable="false"

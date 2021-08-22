@@ -72,7 +72,7 @@ export const Game = () => {
   }, [playableDecks]);
 
   return (
-    <div>
+    <div className="game-container">
       <div className="top-container">
           <SpareDecks
             decks={spareDecks}
