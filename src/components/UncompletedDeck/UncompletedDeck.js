@@ -1,9 +1,8 @@
-import UncompletedDeckImage from "../../assets/uncompleted-deck.png"
+import UncompletedDeckImage from "../../assets/uncompleted-deck.png";
 
 const UncompletedDeck = () => {
   return (
     <div className="card-container">
-      <div className="card-close">
         <img
           width="84px"
           height="125px"
@@ -11,7 +10,7 @@ const UncompletedDeck = () => {
           alt=""
           draggable="false"
         />
-      </div>
+        <div className="uncompleted-card-overlay"></div>
     </div>
   );
 };

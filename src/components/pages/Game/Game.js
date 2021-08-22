@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import {
   handleInitialize,
   handleClickMove,
@@ -40,7 +40,7 @@ export const Game = () => {
   const handleKeypress = (e, playableDecks, moves, hints) => {
     switch (e.key) {
       case "h":
-        showHint(hints, playableDecks);
+        showHint(hints, playableDecks, spareDecks);
         break;
       case "u":
         handleUndo(moves, playableDecks, setPlayableDecks, setMoves);
@@ -85,7 +85,7 @@ export const Game = () => {
         handleUndo={() =>
           handleUndo(moves, playableDecks, setPlayableDecks, setMoves)
         }
-        handleHint={() => showHint(hints, playableDecks)}
+        handleHint={() => showHint(hints, playableDecks, spareDecks)}
         handleCheat={() => setShowCheatColumn(true)}
         handlePlayAgain={() =>
           handleReset(

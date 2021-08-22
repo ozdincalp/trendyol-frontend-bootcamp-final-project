@@ -4,7 +4,7 @@ import "./SpareDecks.scss";
 
 const SpareDecks = ({ decks }) => {
   return (
-    <div className="spare-decks-container">
+    <div id="spare_decks" className="spare-decks-container">
       {decks.map((deck, index) => {
         return (
           <SpareDeck
