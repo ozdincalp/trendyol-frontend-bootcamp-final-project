@@ -1,9 +1,9 @@
 import './CardHolder.scss'
 
-const CardHolder = () => {
+const CardHolder = ({handleClick}) => {
     return (
         <div className="cardholder-container">
-            <div className="cardholder"></div>
+            <div className="cardholder" onClick={handleClick}></div>
         </div>
     )
 }

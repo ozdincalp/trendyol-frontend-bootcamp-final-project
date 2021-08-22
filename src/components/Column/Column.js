@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDrop } from "react-dnd";
-import { handleCompletedDeck, handleDrop } from "../../logic/handlers/index";
+import { handleCompletedDeck, handleDrop, handleCardClick } from "../../logic/handlers/index";
 import { checkMove } from "../../utils/index"
 import DraggableCard from "../DraggableCard/DraggableCard";
 import ImmovableCard from "../ImmovableCard/ImmovableCard";
@@ -41,7 +41,7 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, 
           }
         })
       ) : (
-        <CardHolder />
+        <CardHolder handleClick={() => handleCardClick({cardHolder:true}, columnID, setClickMove, setDeck)}/>
       )}
     </div>
   );

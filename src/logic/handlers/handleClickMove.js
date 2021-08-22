@@ -26,6 +26,7 @@ export const handleClickMove = (
       playableDecks[clickMove[1].deckID],
       clickMove[1].deckID
     );
+    console.log("checkMove value:",value);
 
     if (value) {
       const { newPlayableDecks, move } = moveClickedCards(
