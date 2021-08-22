@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   handleInitialize,
   handleClickMove,
   handleUndo,
   handleHints,
   handleCheat,
-  handleReset
+  handleReset,
 } from "../../../logic/handlers/index";
 import { showHint, throwConfetti } from "../../../utils/index";
 import SpareDecks from "../../SpareDecks/SpareDecks";
@@ -13,15 +13,18 @@ import CompletedDecks from "../../CompletedDecks/CompletedDecks";
 import Columns from "../../Columns/Columns";
 import GameControllers from "../../GameControllers/GameControllers";
 import "./Game.scss";
+import { StoreContext } from "../../../context/store";
 
 export const Game = () => {
-  const [playableDecks, setPlayableDecks] = useState([]);
-  const [spareDecks, setSpareDecks] = useState([]);
-  const [completedDeckCount, setCompletedDeckCount] = useState(0);
-  const [clickMove, setClickMove] = useState([]);
-  const [moves, setMoves] = useState([]);
-  const [hints, setHints] = useState([]);
-  const [showCheatColumn, setShowCheatColumn] = useState(false);
+  const {
+    playableDecks: [playableDecks, setPlayableDecks],
+    spareDecks: [spareDecks, setSpareDecks],
+    hints: [hints, setHints],
+    clickMove: [clickMove, setClickMove],
+    moves: [moves, setMoves],
+    showCheatColumn: [showCheatColumn, setShowCheatColumn],
+    completedDeckCount: [completedDeckCount, setCompletedDeckCount],
+  } = useContext(StoreContext);
 
   useEffect(() => {
     handleInitialize(setPlayableDecks, setSpareDecks);
@@ -74,22 +77,10 @@ export const Game = () => {
   return (
     <div className="game-container">
       <div className="top-container">
-          <SpareDecks
-            decks={spareDecks}
-            setDecks={setPlayableDecks}
-            setSpareDecks={setSpareDecks}
-          />
-        <CompletedDecks completedDeckCount={completedDeckCount} />
+        <SpareDecks decks={spareDecks} />
+        <CompletedDecks />
       </div>
-      {playableDecks.length ? (
-        <Columns
-          decks={playableDecks}
-          setDecks={setPlayableDecks}
-          setCompletedDeckCount={setCompletedDeckCount}
-          setClickMove={setClickMove}
-          setMoves={setMoves}
-        />
-      ) : null}
+      {playableDecks.length ? <Columns /> : null}
       <GameControllers
         handleUndo={() =>
           handleUndo(moves, playableDecks, setPlayableDecks, setMoves)

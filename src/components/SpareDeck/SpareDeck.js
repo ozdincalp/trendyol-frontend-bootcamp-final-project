@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import { handleDealCards } from "../../logic/handlers/index";
 import CardImage from "../../assets/card-back.png";
-import "./SpareDeck.scss"
+import "./SpareDeck.scss";
+import { StoreContext } from "../../context/store";
 
-const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
+const SpareDeck = ({ id, deck }) => {
+  const {
+    "playableDecks": [, setPlayableDecks],
+    "spareDecks": [, setSpareDecks]
+  } = useContext(StoreContext);
+  
   return (
     <div className="spare-deck">
       <img
@@ -11,7 +18,7 @@ const SpareDeck = ({ id, deck, setDecks, setSpareDecks }) => {
         src={CardImage}
         alt=""
         draggable="false"
-        onClick={() => handleDealCards(deck, id, setDecks, setSpareDecks)}
+        onClick={() => handleDealCards(deck, id, setPlayableDecks, setSpareDecks)}
       />
     </div>
   );

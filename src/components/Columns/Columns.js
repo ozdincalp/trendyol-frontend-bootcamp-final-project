@@ -1,20 +1,22 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useContext } from "react";
+import { StoreContext } from "../../context/store";
 import Column from "../Column/Column";
 import "./Columns.scss";
 
-const Columns = ({ decks, setDecks, setCompletedDeckCount, setClickMove, setMoves }) => {
+const Columns = () => {
+  const {
+    "playableDecks": [playableDecks]
+  } = useContext(StoreContext);
+  
   return (
     <div className="columns-container">
       <DndProvider backend={HTML5Backend}>
-        {decks.map((deck, index) => (
+        {playableDecks.map((deck, index) => (
           <Column
             columnID={index}
             deck={deck}
-            setDeck={setDecks}
-            setCompletedDeckCount={setCompletedDeckCount}
-            setClickMove={setClickMove}
-            setMoves={setMoves}
             key={index}
           />
         ))}

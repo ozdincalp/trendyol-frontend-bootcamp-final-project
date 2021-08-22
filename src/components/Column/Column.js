@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useDrop } from "react-dnd";
 import { handleCompletedDeck, handleDrop, handleCardClick } from "../../logic/handlers/index";
 import { checkMove } from "../../utils/index"
@@ -6,16 +6,24 @@ import DraggableCard from "../DraggableCard/DraggableCard";
 import ImmovableCard from "../ImmovableCard/ImmovableCard";
 import CardHolder from "../CardHolder/CardHolder";
 import "./Column.scss";
+import { StoreContext } from "../../context/store";
 
-const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, setMoves }) => {
+const Column = ({ columnID, deck }) => {
+  const {
+    "playableDecks": [, setPlayableDecks],
+    "clickMove" : [, setClickMove],
+    "moves": [, setMoves],
+    "completedDeckCount": [, setCompletedDeckCount],
+  } = useContext(StoreContext);
+
   useEffect(() => {
-    handleCompletedDeck(deck, setDeck, columnID, setCompletedDeckCount)
-  }, [deck.length, deck, setDeck, setCompletedDeckCount, columnID]);
+    handleCompletedDeck(deck, setPlayableDecks, columnID, setCompletedDeckCount)
+  }, [deck.length, deck, setPlayableDecks, setCompletedDeckCount, columnID]);
 
   const [, drop] = useDrop(() => ({
     accept: "card",
     drop: (card) => {
-      handleDrop(setDeck, columnID, card, setMoves);
+      handleDrop(setPlayableDecks, columnID, card, setMoves);
     },
     canDrop: (item) => {
       return checkMove(item, deck, columnID);
@@ -30,9 +38,7 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, 
             return (
               <DraggableCard
                 card={card}
-                setDeck={setDeck}
                 deckID={columnID}
-                setClickMove={setClickMove}
                 key={index}
               />
             );
@@ -41,7 +47,7 @@ const Column = ({ columnID, deck, setDeck, setCompletedDeckCount, setClickMove, 
           }
         })
       ) : (
-        <CardHolder handleClick={() => handleCardClick({cardHolder:true}, columnID, setClickMove, setDeck)}/>
+        <CardHolder handleClick={() => handleCardClick({cardHolder:true}, columnID, setClickMove)}/>
       )}
     </div>
   );

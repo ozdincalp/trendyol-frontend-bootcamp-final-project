@@ -1,9 +1,9 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDragLayer } from "react-dnd";
 import { getDraggedCards } from "../../utils";
 import { CARD_VALUES } from "../../gameConfig";
 import SpadeIcon from "../../assets/spade-icon.svg";
+import { StoreContext } from "../../context/store";
 
 const layerStyles = {
   position: "relative",
@@ -18,7 +18,8 @@ function getItemStyles(initialOffset, currentOffset, columnID) {
     };
   }
   let { x, y } = currentOffset;
-  const transform = `translate(${x - columnID * 2 * 70}px, ${
+
+  const transform = `translate(${x - initialOffset.x}px, ${
     y - (initialOffset.y + 120)
   }px)`;
   return {
@@ -27,7 +28,11 @@ function getItemStyles(initialOffset, currentOffset, columnID) {
   };
 }
 
-const DragLayer = ({ setDeck, columnID }) => {
+const DragLayer = ({ columnID }) => {
+  const {
+    "playableDecks": [, setPlayableDecks],
+  } = useContext(StoreContext);
+
   const [draggedCards, setDraggedCards] = useState([]);
   const { item, initialOffset, currentOffset } = useDragLayer((monitor) => ({
     item: monitor.getItem(),
@@ -37,7 +42,7 @@ const DragLayer = ({ setDeck, columnID }) => {
   useEffect(() => {
     async function test() {
       let state;
-      await setDeck((prevState) => {
+      await setPlayableDecks((prevState) => {
         state = prevState.slice();
         return prevState;
       });
@@ -46,7 +51,7 @@ const DragLayer = ({ setDeck, columnID }) => {
       });
     }
     test();
-  }, [item, setDeck]);
+  }, [item, setPlayableDecks]);
   return (
     <div style={layerStyles}>
       {draggedCards.length > 0 && columnID !== 10

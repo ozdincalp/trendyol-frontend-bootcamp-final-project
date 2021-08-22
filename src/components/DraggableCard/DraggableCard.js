@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { handleCardClick, handleDraggedCards } from "../../logic/handlers";
@@ -6,8 +6,14 @@ import "./DraggableCard.scss";
 import { CARD_VALUES } from "../../gameConfig";
 import DragLayer from "../DragLayer/DragLayer";
 import SpadeIcon from "../../assets/spade-icon.svg";
+import { StoreContext } from "../../context/store";
 
-const Card = ({ card, deckID, setDeck, setClickMove }) => {
+const Card = ({ card, deckID }) => {
+  const {
+    "playableDecks": [, setPlayableDecks],
+    "clickMove" : [, setClickMove],
+  } = useContext(StoreContext);
+
   const [{isDragging}, drag, preview] = useDrag(
     () => ({
       type: "card",
@@ -18,7 +24,7 @@ const Card = ({ card, deckID, setDeck, setClickMove }) => {
       }),
       end: (item, monitor) => {
         if (monitor.didDrop()) {
-          handleDraggedCards(card, deckID, setDeck);
+          handleDraggedCards(card, deckID, setPlayableDecks);
         }
       },
     }),
@@ -35,7 +41,7 @@ const Card = ({ card, deckID, setDeck, setClickMove }) => {
           <div
             id={card.id}
             className="card-open"
-            onClick={() => handleCardClick(card, deckID, setClickMove, setDeck)}
+            onClick={() => handleCardClick(card, deckID, setClickMove, setPlayableDecks)}
           >
            <span className="card-value top-corner">{CARD_VALUES[card.value]}</span>
            <div className="card-icon-container">
@@ -43,7 +49,7 @@ const Card = ({ card, deckID, setDeck, setClickMove }) => {
             <img  src={SpadeIcon}  alt="" />
            </div>
            <span className="card-value bottom-corner">{CARD_VALUES[card.value]}</span>
-            {isDragging ? <DragLayer setDeck={setDeck} columnID={deckID}/> : null}
+            {isDragging ? <DragLayer columnID={deckID}/> : null}
           </div>
         </div>
       </div>
