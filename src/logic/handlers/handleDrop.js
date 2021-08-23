@@ -1,7 +1,7 @@
 import { addCardsToDeck, mapMoves } from "../actions/index";
 import { handleError } from "../../utils/display";
 
-export const handleDrop = async (setDeck, columnID, card, setMoves) => {
+export const handleDrop = async (setDeck, columnID, card, setMoves, setScore) => {
   try {
     let moveData;
 
@@ -27,6 +27,7 @@ export const handleDrop = async (setDeck, columnID, card, setMoves) => {
       );
       return newState;
     });
+    setScore((prevState) => prevState + 10);
   } catch (err) {
     handleError(err);
   }

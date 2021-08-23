@@ -12,6 +12,7 @@ import SpareDecks from "../../SpareDecks/SpareDecks";
 import CompletedDecks from "../../CompletedDecks/CompletedDecks";
 import Columns from "../../Columns/Columns";
 import GameControllers from "../../GameControllers/GameControllers";
+import Scoreboard from "../../Scoreboard/Scoreboard";
 import "./Game.scss";
 import { StoreContext } from "../../../context/store";
 
@@ -24,10 +25,34 @@ export const Game = () => {
     moves: [moves, setMoves],
     showCheatColumn: [showCheatColumn, setShowCheatColumn],
     completedDeckCount: [completedDeckCount, setCompletedDeckCount],
+    timer: [, setTimer],
+    score: [, setScore],
   } = useContext(StoreContext);
 
   useEffect(() => {
     handleInitialize(setPlayableDecks, setSpareDecks);
+    setInterval(() => {
+      setTimer((prevState) => {
+        const currentTime = prevState;
+        let [hour, minute, second] = currentTime.split(":").map((time) => +time);
+        if(second === 59) {
+          minute++;
+          if(minute === 60) {
+            minute = 0;
+            hour++;
+          }
+          second = 0;
+        }
+        else {
+          second++;
+        }
+        if(second < 10) second = `0${second}`
+        if(minute < 10) minute = `0${minute}`
+        if(hour < 10) hour = `0${hour}`
+        
+        return `${hour}:${minute}: ${second}`
+      })
+    }, 1000);
   }, []);
 
   useEffect(() => {
@@ -43,7 +68,7 @@ export const Game = () => {
         showHint(hints, playableDecks, spareDecks);
         break;
       case "u":
-        handleUndo(moves, playableDecks, setPlayableDecks, setMoves);
+        handleUndo(moves, playableDecks, setPlayableDecks, setMoves, setScore);
         break;
       case "c":
         setShowCheatColumn(true);
@@ -59,7 +84,8 @@ export const Game = () => {
         playableDecks,
         setPlayableDecks,
         setClickMove,
-        setMoves
+        setMoves,
+        setScore
       );
     }
   }, [clickMove, playableDecks]);
@@ -76,6 +102,7 @@ export const Game = () => {
 
   return (
     <div className="game-container">
+      <Scoreboard />
       <div className="top-container">
         <SpareDecks decks={spareDecks} />
         <CompletedDecks />
@@ -83,7 +110,7 @@ export const Game = () => {
       {playableDecks.length ? <Columns /> : null}
       <GameControllers
         handleUndo={() =>
-          handleUndo(moves, playableDecks, setPlayableDecks, setMoves)
+          handleUndo(moves, playableDecks, setPlayableDecks, setMoves, setScore)
         }
         handleHint={() => showHint(hints, playableDecks, spareDecks)}
         handleCheat={() => setShowCheatColumn(true)}

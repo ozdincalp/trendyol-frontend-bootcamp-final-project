@@ -1,11 +1,12 @@
-import { undoMove, removeDraggedCardsFromDeck } from "../actions/index";
+import { undoMove } from "../actions/index";
 import { handleError } from "../../utils/display";
 
 export const handleUndo = (
   moves,
   playableDecks,
   setPlayableDecks,
-  setMoves
+  setMoves,
+  setScore
 ) => {
   try {
     if (moves.length > 0) {
@@ -15,6 +16,7 @@ export const handleUndo = (
       );
       setPlayableDecks(removedState);
       setMoves(newMoves);
+      setScore((prevState) => prevState - 10);
     } else {
       alert("There is no move to take back!");
     }

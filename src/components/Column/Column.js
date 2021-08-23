@@ -14,6 +14,7 @@ const Column = ({ columnID, deck }) => {
     "clickMove" : [, setClickMove],
     "moves": [, setMoves],
     "completedDeckCount": [, setCompletedDeckCount],
+    score: [, setScore],
   } = useContext(StoreContext);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Column = ({ columnID, deck }) => {
   const [, drop] = useDrop(() => ({
     accept: "card",
     drop: (card) => {
-      handleDrop(setPlayableDecks, columnID, card, setMoves);
+      handleDrop(setPlayableDecks, columnID, card, setMoves, setScore);
     },
     canDrop: (item) => {
       return checkMove(item, deck, columnID);

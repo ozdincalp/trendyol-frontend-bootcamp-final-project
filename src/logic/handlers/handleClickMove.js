@@ -11,7 +11,8 @@ export const handleClickMove = (
   playableDecks,
   setPlayableDecks,
   setClickMove,
-  setMoves
+  setMoves,
+  setScore
 ) => {
   try {
     const selectedElement = document.getElementById(clickMove[0].card.id);
@@ -28,13 +29,14 @@ export const handleClickMove = (
         playableDecks[clickMove[1].deckID],
         clickMove[1].deckID
       );
-      console.log("checkMove value:", value);
 
       if (value) {
         const { newPlayableDecks, move } = moveClickedCards(
           clickMove,
           playableDecks.slice()
         );
+        setScore((prevState) => prevState + 10);
+        
         const { draggedCards, from, to, previousCard } = move;
         setPlayableDecks(newPlayableDecks);
         setMoves((previousMoves) => {
