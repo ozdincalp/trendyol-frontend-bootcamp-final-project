@@ -1,4 +1,4 @@
-import UncompletedDeckImage from "../../assets/uncompleted-deck.png";
+import cardImage from "../../assets/card-back.png";
 
 const UncompletedDeck = () => {
   return (
@@ -6,7 +6,7 @@ const UncompletedDeck = () => {
         <img
           width="84px"
           height="125px"
-          src={UncompletedDeckImage}
+          src={cardImage}
           alt=""
           draggable="false"
         />

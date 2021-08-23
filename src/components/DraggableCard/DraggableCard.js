@@ -5,8 +5,8 @@ import { handleCardClick, handleDraggedCards } from "../../logic/handlers";
 import "./DraggableCard.scss";
 import { CARD_VALUES } from "../../gameConfig";
 import DragLayer from "../DragLayer/DragLayer";
-import SpadeIcon from "../../assets/spade-icon.svg";
 import { StoreContext } from "../../context/store";
+import cardIcon from "../../assets/spade-icon.svg";
 
 const Card = ({ card, deckID }) => {
   const {
@@ -46,7 +46,7 @@ const Card = ({ card, deckID }) => {
            <span className="card-value top-corner">{CARD_VALUES[card.value]}</span>
            <div className="card-icon-container">
           
-            <img  src={SpadeIcon}  alt="" />
+            <img  src={cardIcon}  alt="" />
            </div>
            <span className="card-value bottom-corner">{CARD_VALUES[card.value]}</span>
             {isDragging ? <DragLayer columnID={deckID}/> : null}

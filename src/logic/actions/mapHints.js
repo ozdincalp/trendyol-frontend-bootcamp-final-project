@@ -1,4 +1,7 @@
+import { handleError } from "../../utils/display";
+
 export const mapHints = (playableDecks) => {
+  try {
     const lastCards = playableDecks.map((deck) => deck[deck.length - 1]?.value);
     const hints = [];
 
@@ -13,13 +16,15 @@ export const mapHints = (playableDecks) => {
     });
 
     const mappedHints = hints.map((value, index) => {
-      if(value.length > 0) {
+      if (value.length > 0) {
         return {
           column: index,
-          values: value
-        }
-      }
-      else return null
+          values: value,
+        };
+      } else return null;
     });
     return mappedHints.filter((column) => !!column);
+  } catch (err) {
+    handleError(err);
+  }
 };

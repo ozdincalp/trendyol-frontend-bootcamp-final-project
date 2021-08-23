@@ -12,7 +12,7 @@
     margin-bottom: -100px;
 }
 @media only screen and (max-width: 850px){
-    .card-open, .card-open-container, .card-close, .draggable {
+    .card-open, .card-open-container, .card-close, .draggable, .cardholder {
       width: 60px;
       height: 89px;
     }
@@ -38,7 +38,7 @@
       }
   }
 @media only screen and (max-width: 620px){
-    .card-open, .card-open-container, .card-close, .draggable {
+    .card-open, .card-open-container, .card-close, .draggable, .cardholder {
       width: 37px;
       height: 60px;
     }

@@ -89,4 +89,12 @@ export const showHint = (hints, playableDecks, spareDecks) => {
     }
     
   };
+
+  export const handleError = (err) => {
+    console.log(err);
+    alert("Game is facing some errors. Your page will be refreshed soon. See console for further details.")
+    setTimeout(() => {
+      window.location.reload();
+    }, 0.5 * 1000);
+  }
   
