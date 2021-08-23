@@ -5,7 +5,7 @@ const DealCard = () => {
   return (
     <div className="deal-card">
       <div className="preview-container">
-        <img src={MovePreview} alt="" />
+        <img src={MovePreview} alt="Deal Card Move" />
       </div>
       <h2>You can deal one card onto each column if you feel stuck.</h2>
     </div>

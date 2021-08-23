@@ -17,7 +17,7 @@ const SpareDeck = ({ id, deck }) => {
         width="84"
         height="125"
         src={cardImage}
-        alt=""
+        alt="Card Image"
         draggable="false"
         onClick={() =>
           handleDealCards(deck, id, setPlayableDecks, setSpareDecks, setMoves)

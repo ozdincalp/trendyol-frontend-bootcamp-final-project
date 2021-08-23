@@ -67,7 +67,7 @@ const DragLayer = ({ columnID }) => {
                         {CARD_VALUES[card.value]}
                       </span>
                       <div className="card-icon-container">
-                        <img src={cardIcon} alt="" />
+                        <img src={cardIcon} alt="Card Icon" />
                       </div>
                       <span className="card-value bottom-corner">
                         {CARD_VALUES[card.value]}

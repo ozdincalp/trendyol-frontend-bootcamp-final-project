@@ -8,7 +8,7 @@ export const mapMoves = (
   previousMoves
 ) => {
   try {
-    if (previousMoves.length < 25) {
+    if (previousMoves.length < 100) {
       const move = {
         draggedCards: draggedCards,
         from: index,

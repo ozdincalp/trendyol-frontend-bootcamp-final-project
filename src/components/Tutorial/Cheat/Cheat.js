@@ -5,7 +5,7 @@ const Cheat = () => {
   return (
     <div className="cheat">
       <div className="preview-container">
-        <img src={MovePreview} alt="" />
+        <img src={MovePreview} alt="Cheat Move" />
       </div>
       <h2>
         An extra column shows up if you click cheat. You can drag and drop there

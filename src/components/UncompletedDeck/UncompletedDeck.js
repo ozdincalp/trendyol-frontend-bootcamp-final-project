@@ -7,7 +7,7 @@ const UncompletedDeck = () => {
         width="84px"
         height="125px"
         src={cardImage}
-        alt=""
+        alt="Card Image"
         draggable="false"
       />
     </div>

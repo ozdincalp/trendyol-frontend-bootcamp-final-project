@@ -5,7 +5,7 @@ const Hint = () => {
   return (
     <div className="hint">
       <div className="preview-container">
-        <img src={MovePreview} alt="" />
+        <img src={MovePreview} alt="Hint Move" />
       </div>
       <h2>You can see hints with a beautiful animation.</h2>
     </div>

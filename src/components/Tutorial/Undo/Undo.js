@@ -4,7 +4,7 @@ const Undo = () => {
   return (
     <div className="undo">
       <div className="preview-container">
-        <img src={MovePreview} alt="" />
+        <img src={MovePreview} alt="Undo Image" />
       </div>
       <h2>You can undo your moves.</h2>
     </div>
