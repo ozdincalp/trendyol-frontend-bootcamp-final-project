@@ -13,6 +13,7 @@ import CompletedDecks from "../../CompletedDecks/CompletedDecks";
 import Columns from "../../Columns/Columns";
 import GameControllers from "../../GameControllers/GameControllers";
 import Scoreboard from "../../Scoreboard/Scoreboard";
+import Tutorial from "../../Tutorial/Tutorial";
 import "./Game.scss";
 import { StoreContext } from "../../../context/store";
 
@@ -27,6 +28,7 @@ export const Game = () => {
     completedDeckCount: [completedDeckCount, setCompletedDeckCount],
     timer: [, setTimer],
     score: [, setScore],
+    showTutorial: [showTutorial, setShowTutorial],
   } = useContext(StoreContext);
 
   useEffect(() => {
@@ -127,7 +129,9 @@ export const Game = () => {
             setScore
           )
         }
+        handleTutorial = {() => setShowTutorial((prevState) => !prevState)}
       />
+      {showTutorial ? <Tutorial /> : null}
     </div>
   );
 };

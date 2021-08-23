@@ -1,7 +1,7 @@
 import React from "react";
 import "./GameControllers.scss";
 
-const GameControllers = ({ handlePlayAgain, handleUndo, handleHint, handleCheat}) => {
+const GameControllers = ({ handlePlayAgain, handleUndo, handleHint, handleCheat, handleTutorial}) => {
   return (
     <div className="toolbox-container restart" data-testid="toolbox">
       <div className="game-controller tooltip restart" onClick={handlePlayAgain}>
@@ -39,7 +39,7 @@ const GameControllers = ({ handlePlayAgain, handleUndo, handleHint, handleCheat}
           </span>
         </div>
       </div>
-      <div className="game-info tooltip info">
+      <div className="game-info tooltip info" onClick={handleTutorial}>
       <span className="tooltiptext">Info</span>
         <span className="toolbox-icon" style={{ fontSize: "40px" }}>
           <i className="fas fa-info-circle"></i>

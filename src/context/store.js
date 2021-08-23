@@ -13,6 +13,7 @@ const StoreProvider = ({ children }) => {
   const [completedDeckCount, setCompletedDeckCount] = useState(0);
   const [timer, setTimer] = useState("00:00:00");
   const [score, setScore] = useState(0);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   const store = {
     playableDecks: [playableDecks, setPlayableDecks],
@@ -23,7 +24,8 @@ const StoreProvider = ({ children }) => {
     showCheatColumn: [showCheatColumn, setShowCheatColumn],
     completedDeckCount: [completedDeckCount, setCompletedDeckCount],
     timer: [timer, setTimer],
-    score: [score, setScore]
+    score: [score, setScore],
+    showTutorial: [showTutorial, setShowTutorial]
   };
 
   return (
