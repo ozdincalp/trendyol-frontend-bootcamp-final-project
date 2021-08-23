@@ -122,7 +122,9 @@ export const Game = () => {
             setClickMove,
             setMoves,
             setHints,
-            setShowCheatColumn
+            setShowCheatColumn,
+            setTimer,
+            setScore
           )
         }
       />

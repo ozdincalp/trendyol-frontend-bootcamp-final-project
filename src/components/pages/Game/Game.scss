@@ -11,6 +11,67 @@
     height: 125px;
     margin-bottom: -100px;
 }
+@media only screen and (min-width: 1500px){
+  h1 {
+    font-size: 29px;
+  }
+  .card-open, .card-open-container, .card-close, .draggable, .cardholder {
+    width: 100px;
+    height: 148px;
+  }
+  .card-container{
+      width: 100px;
+      height: 135px;
+      margin-bottom: -105px;
+  }
+  .spare-deck {
+    width: 110px;
+    height: 120px;
+    margin-left: -50px;
+
+  }
+  .card-icon-container {
+      * {
+        width: 55px!important;
+        height: 60px!important;
+      }
+    }
+    .card-value {
+        font-size: 24px!important;
+    }
+}
+@media only screen and (min-width: 1700px){
+  h1 {
+    font-size: 34px;
+  }
+  .top-container {
+    margin-bottom: 40px;
+  }
+  .card-open, .card-open-container, .card-close, .draggable, .cardholder {
+    width: 135px;
+    height: 200px;
+  }
+  .card-container{
+      width: 120px;
+      height: 135px;
+      margin-bottom: -105px;
+  }
+  .spare-deck *{
+    width: 120px;
+    height: 150px;
+    margin-left: -50px;
+
+  }
+  .card-icon-container {
+      * {
+        width: 80px!important;
+        height: 92px!important;
+      }
+    }
+    .card-value {
+        font-size: 32px!important;
+    }
+}
 @media only screen and (max-width: 850px){
     h1 {
       font-size: 26px;
@@ -43,6 +104,9 @@
 @media only screen and (max-width: 620px){
   h1 {
     font-size: 18px;
+  }
+  h2 {
+    font-size: 13px;
   }
     .card-open, .card-open-container, .card-close, .draggable, .cardholder {
       width: 37px;

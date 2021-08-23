@@ -8,7 +8,9 @@ export const handleReset = async (
   setClickMove,
   setMoves,
   setHints,
-  setShowCheatColumn
+  setShowCheatColumn,
+  setTimer,
+  setScore
 ) => {
   try {
     await setPlayableDecks([]);
@@ -18,6 +20,8 @@ export const handleReset = async (
     await setMoves([]);
     await setHints([]);
     await setShowCheatColumn(false);
+    await setTimer("00:00:00");
+    await setScore(0);
     handleInitialize(setPlayableDecks, setSpareDecks);
   } catch (err) {
     handleError(err);
