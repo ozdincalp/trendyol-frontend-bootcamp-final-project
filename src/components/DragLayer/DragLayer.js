@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useDragLayer } from "react-dnd";
-import { getDraggedCards } from "../../utils";
+import { getDraggedCards } from "../../utils/helpers";
 import { CARD_VALUES } from "../../gameConfig";
 import SpadeIcon from "../../assets/spade-icon.svg";
 import { StoreContext } from "../../context/store";
@@ -40,7 +40,7 @@ const DragLayer = ({ columnID }) => {
     currentOffset: monitor.getSourceClientOffset(),
   }));
   useEffect(() => {
-    async function test() {
+    async function handleDrag() {
       let state;
       await setPlayableDecks((prevState) => {
         state = prevState.slice();
@@ -50,7 +50,7 @@ const DragLayer = ({ columnID }) => {
         return getDraggedCards(state.slice(), item);
       });
     }
-    test();
+    handleDrag();
   }, [item, setPlayableDecks]);
   return (
     <div style={layerStyles}>

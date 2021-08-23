@@ -1,4 +1,4 @@
-import { checkMove } from "../../utils/index";
+import { checkMove } from "../../utils/helpers";
 
 describe("Check Move", () => {
   const card = {

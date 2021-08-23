@@ -29,11 +29,23 @@ const previousCard = { isOpen: false, isDraggable: false };
 
 describe("Map Moves", () => {
   it("should add move to the moves array", () => {
-    const newMoves = mapMoves(draggedCards, from, to, previousCard, previousMoves);
+    const newMoves = mapMoves(
+      draggedCards,
+      from,
+      to,
+      previousCard,
+      previousMoves
+    );
     expect(newMoves).toHaveLength(2);
     expect(newMoves[1]).toHaveProperty("draggedCards");
     expect(newMoves[1]).toHaveProperty("from");
     expect(newMoves[1]).toHaveProperty("to");
     expect(newMoves[1]).toHaveProperty("previousCard");
   });
+
+  it("should return previous moves when move limit is reached", () => {
+    const completedArr = Array(25);
+    const newMoves = mapMoves([], 0, 1, {}, completedArr);
+    expect(completedArr).toEqual(newMoves);
+  })
 });

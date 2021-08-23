@@ -1,4 +1,4 @@
-import { filterDraggedCards, unblockDeck } from '../../utils/index'
+import { filterDraggedCards, unblockDeck } from '../../utils/helpers'
 
 export const removeDraggedCardsFromDeck = (deckID, card, previousDeck) => {
  

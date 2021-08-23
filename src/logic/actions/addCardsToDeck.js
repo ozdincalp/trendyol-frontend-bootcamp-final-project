@@ -1,4 +1,4 @@
-import { getDraggedCards } from "../../utils/index";
+import { getDraggedCards } from "../../utils/helpers";
 
 export const addCardsToDeck = (columnID, card, previousDeck) => {
   const newState = previousDeck;

@@ -27,7 +27,7 @@ const clickMove = [
 
 describe("Move Clicked Cards", () => {
   it("should move second card to the first item's deck", () => {
-    const {newPlayableDecks} = moveClickedCards(clickMove, playableDecks);
+    const { newPlayableDecks } = moveClickedCards(clickMove, playableDecks);
     expect(newPlayableDecks[0]).toHaveLength(2);
   });
 });

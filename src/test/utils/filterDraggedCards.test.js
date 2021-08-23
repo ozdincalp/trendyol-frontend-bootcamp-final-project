@@ -1,4 +1,4 @@
-import { filterDraggedCards } from "../../utils/index";
+import { filterDraggedCards } from "../../utils/helpers";
 
 describe("Filter Dragged Cards", () => {
     const lastCardToDrag = {

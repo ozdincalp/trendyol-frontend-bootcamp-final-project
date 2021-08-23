@@ -3,7 +3,7 @@ import {
   mapMoves,
   removeDraggedCardsFromDeck,
 } from "../actions/index";
-import { checkMove } from "../../utils/index";
+import { checkMove } from "../../utils/helpers";
 
 export const handleClickMove = (
   clickMove,

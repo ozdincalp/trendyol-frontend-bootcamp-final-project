@@ -1,4 +1,4 @@
-import { initializeCards } from "../../utils/index";
+import { initializeCards } from "../../utils/helpers";
 
 describe("Initialize Decks", () => {
   describe("Initialize Playable Decks Array", () => {

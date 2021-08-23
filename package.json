@@ -40,5 +40,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/components",
+      "<rootDir>/src/logic/handlers",
+      "<rootDir>/src/utils/display"
+    ]
   }
 }

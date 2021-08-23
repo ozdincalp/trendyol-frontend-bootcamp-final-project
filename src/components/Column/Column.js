@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { useDrop } from "react-dnd";
 import { handleCompletedDeck, handleDrop, handleCardClick } from "../../logic/handlers/index";
-import { checkMove } from "../../utils/index"
+import { checkMove } from "../../utils/helpers"
 import DraggableCard from "../DraggableCard/DraggableCard";
 import ImmovableCard from "../ImmovableCard/ImmovableCard";
 import CardHolder from "../CardHolder/CardHolder";

@@ -1,5 +1,5 @@
 export const mapMoves = (draggedCards, index, columnID, previousCard, previousMoves) => {
-        if(previousMoves.length < 100) {
+        if(previousMoves.length < 25) {
           const move = {
             draggedCards: draggedCards,
             from: index,

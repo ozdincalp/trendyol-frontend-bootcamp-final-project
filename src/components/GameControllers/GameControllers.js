@@ -3,7 +3,7 @@ import "./GameControllers.scss";
 
 const GameControllers = ({ handlePlayAgain, handleUndo, handleHint, handleCheat}) => {
   return (
-    <div className="toolbox-container">
+    <div className="toolbox-container" data-testid="toolbox">
       <div className="game-restart tooltip">
       <span className="tooltiptext">Play again</span>
         <span className="toolbox-icon" onClick={handlePlayAgain} style={{ fontSize: "40px" }}>

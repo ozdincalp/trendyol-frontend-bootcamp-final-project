@@ -1,4 +1,4 @@
-import { getDraggedCards } from "../../utils/index";
+import { getDraggedCards } from "../../utils/helpers";
 
 describe("Get Dragged Cards", () => {
   const lastCardToDrag = {

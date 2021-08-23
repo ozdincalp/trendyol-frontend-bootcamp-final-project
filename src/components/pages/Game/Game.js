@@ -7,7 +7,7 @@ import {
   handleCheat,
   handleReset,
 } from "../../../logic/handlers/index";
-import { showHint, throwConfetti } from "../../../utils/index";
+import { showHint, throwConfetti } from "../../../utils/display";
 import SpareDecks from "../../SpareDecks/SpareDecks";
 import CompletedDecks from "../../CompletedDecks/CompletedDecks";
 import Columns from "../../Columns/Columns";

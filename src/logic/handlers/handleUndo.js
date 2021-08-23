@@ -5,7 +5,6 @@ export const handleUndo = (moves, playableDecks, setPlayableDecks, setMoves) => 
     const { removedState, newMoves } = undoMove(
       moves.slice(),
       playableDecks.slice(),
-      removeDraggedCardsFromDeck
     );
     setPlayableDecks(removedState);
     setMoves(newMoves);
