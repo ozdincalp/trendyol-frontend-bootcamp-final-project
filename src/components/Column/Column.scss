@@ -1,17 +1,17 @@
 .column-container {
-    position: relative;
+  position: relative;
 }
 .secret {
-    position: absolute;
-    top: 180%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 60px;
-    border-radius: 15px;
+  position: absolute;
+  top: 180%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 60px;
+  border-radius: 15px;
 }
 
 .highlight {
-  box-shadow: 0 0 0 99999px rgba(0, 0, 0, .9);
+  box-shadow: 0 0 0 99999px rgba(0, 0, 0, 0.9);
   z-index: 9999;
-  pointer-events:  none;
+  pointer-events: none;
 }

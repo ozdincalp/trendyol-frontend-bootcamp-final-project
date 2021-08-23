@@ -3,7 +3,6 @@ import { createContext, useState } from "react";
 export const StoreContext = createContext(null);
 
 const StoreProvider = ({ children }) => {
-
   const [playableDecks, setPlayableDecks] = useState([]);
   const [spareDecks, setSpareDecks] = useState([]);
   const [hints, setHints] = useState([]);
@@ -25,7 +24,7 @@ const StoreProvider = ({ children }) => {
     completedDeckCount: [completedDeckCount, setCompletedDeckCount],
     timer: [timer, setTimer],
     score: [score, setScore],
-    showTutorial: [showTutorial, setShowTutorial]
+    showTutorial: [showTutorial, setShowTutorial],
   };
 
   return (

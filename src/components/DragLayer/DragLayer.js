@@ -30,7 +30,7 @@ function getItemStyles(initialOffset, currentOffset, columnID) {
 
 const DragLayer = ({ columnID }) => {
   const {
-    "playableDecks": [, setPlayableDecks],
+    playableDecks: [, setPlayableDecks],
   } = useContext(StoreContext);
 
   const [draggedCards, setDraggedCards] = useState([]);

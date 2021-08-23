@@ -1,13 +1,13 @@
 .spare-decks-container {
-    width: 200px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin-left: 70px;
-    text-align: center;
+  width: 200px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-left: 70px;
+  text-align: center;
 }
 .highlihted {
-    transform: scale(1.1);
-    transition: .3s;
+  transform: scale(1.1);
+  transition: 0.3s;
 }

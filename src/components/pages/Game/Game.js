@@ -7,15 +7,15 @@ import {
   handleCheat,
   handleReset,
 } from "../../../logic/handlers/index";
-import { showHint, throwConfetti } from "../../../utils/display";
 import SpareDecks from "../../SpareDecks/SpareDecks";
 import CompletedDecks from "../../CompletedDecks/CompletedDecks";
 import Columns from "../../Columns/Columns";
 import GameControllers from "../../GameControllers/GameControllers";
 import Scoreboard from "../../Scoreboard/Scoreboard";
 import Tutorial from "../../Tutorial/Tutorial";
-import "./Game.scss";
+import { showHint, throwConfetti } from "../../../utils/display";
 import { StoreContext } from "../../../context/store";
+import "./Game.scss";
 
 export const Game = () => {
   const {
@@ -36,24 +36,25 @@ export const Game = () => {
     setInterval(() => {
       setTimer((prevState) => {
         const currentTime = prevState;
-        let [hour, minute, second] = currentTime.split(":").map((time) => +time);
-        if(second === 59) {
+        let [hour, minute, second] = currentTime
+          .split(":")
+          .map((time) => +time);
+        if (second === 59) {
           minute++;
-          if(minute === 60) {
+          if (minute === 60) {
             minute = 0;
             hour++;
           }
           second = 0;
-        }
-        else {
+        } else {
           second++;
         }
-        if(second < 10) second = `0${second}`
-        if(minute < 10) minute = `0${minute}`
-        if(hour < 10) hour = `0${hour}`
-        
-        return `${hour}:${minute}: ${second}`
-      })
+        if (second < 10) second = `0${second}`;
+        if (minute < 10) minute = `0${minute}`;
+        if (hour < 10) hour = `0${hour}`;
+
+        return `${hour}:${minute}: ${second}`;
+      });
     }, 1000);
   }, []);
 
@@ -129,7 +130,7 @@ export const Game = () => {
             setScore
           )
         }
-        handleTutorial = {() => setShowTutorial((prevState) => !prevState)}
+        handleTutorial={() => setShowTutorial((prevState) => !prevState)}
       />
       {showTutorial ? <Tutorial /> : null}
     </div>

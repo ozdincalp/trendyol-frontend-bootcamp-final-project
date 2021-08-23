@@ -1,5 +1,5 @@
 import MovePreview from "../../../assets/tutorial/dealCards-min.gif";
-import "./DealCard.scss"
+import "./DealCard.scss";
 
 const DealCard = () => {
   return (

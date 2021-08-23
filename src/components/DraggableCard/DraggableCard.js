@@ -6,21 +6,22 @@ import "./DraggableCard.scss";
 import { CARD_VALUES } from "../../gameConfig";
 import DragLayer from "../DragLayer/DragLayer";
 import { StoreContext } from "../../context/store";
+import { itemTypes } from "../../itemTypes";
 import cardIcon from "../../assets/spade-icon.svg";
 
 const Card = ({ card, deckID }) => {
   const {
-    "playableDecks": [, setPlayableDecks],
-    "clickMove" : [, setClickMove],
+    playableDecks: [, setPlayableDecks],
+    clickMove: [, setClickMove],
   } = useContext(StoreContext);
 
-  const [{isDragging}, drag, preview] = useDrag(
+  const [{ isDragging }, drag, preview] = useDrag(
     () => ({
-      type: "card",
+      type: itemTypes.CARD,
       item: card,
       canDrag: card.isDraggable,
       collect: (monitor) => ({
-        isDragging: !!monitor.isDragging()
+        isDragging: !!monitor.isDragging(),
       }),
       end: (item, monitor) => {
         if (monitor.didDrop()) {
@@ -31,8 +32,8 @@ const Card = ({ card, deckID }) => {
     [card.isDraggable]
   );
   useEffect(() => {
-      preview(getEmptyImage(), { captureDraggingState: true });
-}, [preview, deckID]);
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, [preview, deckID]);
 
   return (
     <div className="card-container">
@@ -41,15 +42,20 @@ const Card = ({ card, deckID }) => {
           <div
             id={card.id}
             className="card-open"
-            onClick={() => handleCardClick(card, deckID, setClickMove, setPlayableDecks)}
+            onClick={() =>
+              handleCardClick(card, deckID, setClickMove, setPlayableDecks)
+            }
           >
-           <span className="card-value top-corner">{CARD_VALUES[card.value]}</span>
-           <div className="card-icon-container">
-          
-            <img  src={cardIcon}  alt="" />
-           </div>
-           <span className="card-value bottom-corner">{CARD_VALUES[card.value]}</span>
-            {isDragging ? <DragLayer columnID={deckID}/> : null}
+            <span className="card-value top-corner">
+              {CARD_VALUES[card.value]}
+            </span>
+            <div className="card-icon-container">
+              <img src={cardIcon} alt="" />
+            </div>
+            <span className="card-value bottom-corner">
+              {CARD_VALUES[card.value]}
+            </span>
+            {isDragging ? <DragLayer columnID={deckID} /> : null}
           </div>
         </div>
       </div>
